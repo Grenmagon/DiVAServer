@@ -22,7 +22,18 @@ public class MyHttpServer implements HttpHandler
         Path path = Paths.get("public" + urlPath);
         System.out.println();
 
-        if (Files.exists(path) && !Files.isDirectory(path))
+        if(urlPath.startsWith("/JSON/"))
+        {
+            if(urlPath.contains("calendar.json"))
+            {
+                String response = Main.gc.writeJson();
+                exchange.sendResponseHeaders(404, response.length());
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            }
+        }
+        else if (Files.exists(path) && !Files.isDirectory(path))
         {
             byte[] fileBytes = Files.readAllBytes(path);
             exchange.sendResponseHeaders(200, fileBytes.length);

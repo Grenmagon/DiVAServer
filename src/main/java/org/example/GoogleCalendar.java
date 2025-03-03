@@ -82,9 +82,9 @@ public class GoogleCalendar
         }
     }
 
-    void writeJson()
+    public String writeJson()
     {
         Gson g = new Gson();
-        System.out.println(g.toJson(appointments));
+        return g.toJson(appointments);
     }
 }
