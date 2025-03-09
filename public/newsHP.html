@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/newsHP.css">
+</head>
+<body>
+<main>
+    <div class="cards-container container flex" id="cards-container">
+    </div>
+</main>
+<template id="template-news-card">
+    <div class="card">
+        <div class="card-header">
+            <img src="https://via.placeholder.com/400x200" alt="news-image" id="news-img">
+        </div>
+        <div class="card-content">
+            <p id="news-title">This is the Title</p>
+            <h6 class="news-source" id="news-source">End Gadget 26/08/2023</h6>
+            <h6 class="news-desc" id="news-desc"></h6>
+        </div>
+    </div>
+</template>
+
+<script src="js/news.js"></script>
+<!--<script> fillDataInCard(cardClone, article);</script>-->
+<!--<script> loadNews();</script>-->
+</body>
+
+</html>
