@@ -27,7 +27,7 @@ public class MyHttpServer implements HttpHandler
             if(urlPath.contains("calendar.json"))
             {
                 String response = Main.gc.writeJson();
-                exchange.sendResponseHeaders(404, response.length());
+                exchange.sendResponseHeaders(200, response.length());
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
                 os.close();
