@@ -1,4 +1,4 @@
-package org.example;
+package org.example.APICalls;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -41,14 +41,14 @@ public class GoogleCalendar
 
     }
 
-    public String getUrlAPI()
+    public String getUrlAPI(LocalDate from, LocalDate to)
     {
         StringBuilder url = new StringBuilder(CALENDAR_URL + calendar_Id + "/events?key=" + api_key);
         List<String> param = new ArrayList<>();
 
-        LocalDate today = LocalDate.now();
-        String timeMin = today + "T00:00:00Z";
-        String timeMax = today + "T23:59:59Z";
+
+        String timeMin = from + "T00:00:00Z";
+        String timeMax = to + "T23:59:59Z";
         param.add("timeMin=" + timeMin);
         param.add("timeMax=" + timeMax);
         param.add("singleEvents=true");
@@ -59,9 +59,10 @@ public class GoogleCalendar
         return url.toString();
     }
 
-    public void loadCalendarAPI()
+    public void loadCalendarAPI(LocalDate from, LocalDate to)
     {
-        String calendarJSon = RESTCall.getContent(getUrlAPI());
+
+        String calendarJSon = RESTCall.getContent(getUrlAPI(from, to));
         System.out.println("Appointments load:");
         System.out.println(calendarJSon);
         JsonObject jsonObject = JsonParser.parseString(calendarJSon).getAsJsonObject();

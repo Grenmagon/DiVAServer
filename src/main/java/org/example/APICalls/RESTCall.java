@@ -1,4 +1,4 @@
-package org.example;
+package org.example.APICalls;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,7 +22,7 @@ public class RESTCall
             // Response-Code prüfen
             if (conn.getResponseCode() != 200)
             {
-                throw new RuntimeException("HTTP Error: " + conn.getResponseCode());
+                throw new RuntimeException("HTTP Error: " + conn.getResponseCode() + " - "+ conn.getContent().toString());
             }
 
             // Antwort lesen
