@@ -1,10 +1,10 @@
 // Retrieve todo from local storage or initialize an empty array
 let todo = JSON.parse(localStorage.getItem("todo")) || [];
-const todoInput = document.getElementById("todoInput");
-const todoList = document.getElementById("todoList");
-const todoCount = document.getElementById("todoCount");
-const addButton = document.querySelector(".btn");
-const deleteButton = document.getElementById("deleteButton");
+let todoInput = document.getElementById("todoInput");
+let todoList = document.getElementById("todoList");
+let todoCount = document.getElementById("todoCount");
+let addButton = document.querySelector(".btn");
+let deleteButton = document.getElementById("deleteButton");
 
 // Initialize
 document.addEventListener("DOMContentLoaded", function () {

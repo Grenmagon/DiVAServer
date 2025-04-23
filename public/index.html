@@ -1,28 +1,26 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Einfache Seite</title>
+    <title>Animated Navbar</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <script type="module" src="sidebar/js/sidebar.js"></script>
+    <script type="module" src="js/index.js"></script>
+
 </head>
 <body>
-<header>
-    <h1>Willkommen auf meiner Seite!</h1>
-</header>
+<div id="SIDEBAR"></div>
 
-<main>
-    <p id="text">Dies ist eine einfache HTML-Seite mit CSS und JavaScript.</p>
-    <button onclick="changeText()">Text ändern</button>
-    <div>
-    <div id="div1" class="widgetDiv"></div>
-    <div id="div2" class="widgetDiv"></div>
-    <div id="div3" class="widgetDiv"></div>
-    <div id="div4" class="widgetDiv"></div>
+<div>
+    <div id="WEATHER" class="widgetDiv">
     </div>
+    <div id="NEWS" class="widgetDiv"></div>
+    <div id="CALENDAR" class="widgetDiv"></div>
+    <div id="TODO" class="widgetDiv"></div>
+</div>
 
-</main>
-
-<script src="js/script.js"></script>
 </body>
 </html>
