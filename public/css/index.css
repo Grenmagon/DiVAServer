@@ -1,8 +1,8 @@
 .widgetDiv {
-height:300px;
-width:400px;
-border: 0.06rem solid black;
-float: left;
-border-radius: 2rem;
-align: center;
+	height:300px;
+	width:400px;
+	border: 0.06rem solid black;
+	float: left;
+	border-radius: 2rem;
+	align: center;
 }

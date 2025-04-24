@@ -1,56 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root{
-  --color-background: #e76642;
-  --text-color: #f0f0f0;
-  --accent-color: #232227;
+	--color-background: #e76642;
+	--text-color: #f0f0f0;
+	--accent-color: #232227;
 
-    --gradient: linear-gradient(
-      180deg,
-      rgba(45, 112, 1253, 0.73) 0%,
-      #163e92 100%
-    );
-    --dark: #001747;
-    --grey: #b1bacb;
-    --grey-border: rgba(210, 210, 210, 0.75);
-    --grey-light: #eeeeee;
-    --grey-dark: #405175;
-    --orange: #e76642;
-    --green: #00d8a7;
-    --white: #ffffff;
-    --black: #000000;
+	--gradient: linear-gradient(
+	180deg,
+	rgba(45, 112, 1253, 0.73) 0%,
+	#163e92 100%
+	);
+	--dark: #001747;
+	--grey: #b1bacb;
+	--grey-border: rgba(210, 210, 210, 0.75);
+	--grey-light: #eeeeee;
+	--grey-dark: #405175;
+	--orange: #e76642;
+	--green: #00d8a7;
+	--white: #ffffff;
+	--black: #000000;
 }
 
 body {
-    background: #e76642;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: #e76642;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h2, label, p {
-    color: #232227;
-    margin: 8px 0;
+	color: #232227;
+	margin: 8px 0;
 }
 
 input {
-    width: calc(100% - 16px);
-    padding: 8px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border: 1px solid white;
-    margin-top: 20px;
-    background: #ecece7;
-    color: #232227;
+	width: calc(100% - 16px);
+	padding: 8px;
+	box-sizing: border-box;
+	border-radius: 10px;
+	border: 1px solid white;
+	margin-top: 20px;
+	background: #ecece7;
+	color: #232227;
 }
 
 button {
-    background: #232227;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 20px;
-    width: 100px;
-    font-size: 15px;
+	background: #232227;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	margin-top: 20px;
+	width: 100px;
+	font-size: 15px;
 }
 

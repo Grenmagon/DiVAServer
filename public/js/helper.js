@@ -7,33 +7,33 @@ export function getCurrentDate() {
 }
 
 export function applyShadowWithCss(containerId, cssUrl) {
-    const host = document.getElementById(containerId);
-    if (!host) {
-        console.error("Element mit ID '" + containerId + "' nicht gefunden.");
-        return;
-    }
+	const host = document.getElementById(containerId);
+	if (!host) {
+		console.error("Element mit ID '" + containerId + "' nicht gefunden.");
+		return;
+	}
 
-    const shadow = host.attachShadow({ mode: "open" });
+	const shadow = host.attachShadow({ mode: "open" });
 
-    // CSS-Link dynamisch laden
-    const styleLink = document.createElement("link");
-    styleLink.rel = "stylesheet";
-    styleLink.href = cssUrl;
-    shadow.appendChild(styleLink);
+	// CSS-Link dynamisch laden
+	const styleLink = document.createElement("link");
+	styleLink.rel = "stylesheet";
+	styleLink.href = cssUrl;
+	shadow.appendChild(styleLink);
 
-    // Vorhandenen Inhalt in Shadow DOM verschieben
-    const content = document.createElement("div");
-    content.innerHTML = host.innerHTML;
-    shadow.appendChild(content);
+	// Vorhandenen Inhalt in Shadow DOM verschieben
+	const content = document.createElement("div");
+	content.innerHTML = host.innerHTML;
+	shadow.appendChild(content);
 
-    // Optional: Originalinhalt entfernen, um Dopplung zu vermeiden
-    host.innerHTML = "";
+	// Optional: Originalinhalt entfernen, um Dopplung zu vermeiden
+	host.innerHTML = "";
 }
 
 
 export function loadCSS(cssUrl) {
-           const link = document.createElement("link");
-           link.rel = "stylesheet";
-           link.href = cssUrl;
-           document.head.appendChild(link);
-       }
+	const link = document.createElement("link");
+	link.rel = "stylesheet";
+	link.href = cssUrl;
+	document.head.appendChild(link);
+}

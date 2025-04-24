@@ -1,10 +1,9 @@
-import * as News from "./newsController.js";
+import { NewsController } from './newsController.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-console.log("onLoad News");
-    News.setupSearchListener();
-    News.setupNavListeners();
-
-    News.loadNews();
+	const newsController = new NewsController();
+	newsController.init();
+	newsController.loadNews(); // Start mit aktuellen News
 });
+
 

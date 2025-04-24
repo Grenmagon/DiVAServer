@@ -1,10 +1,10 @@
-import * as Calendar from "./calendarController.js";
+import { CalendarController } from './CalendarController.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-let cardElement = document.querySelector(".card");
-cardElement.addEventListener("click", Calendar.flip);
+	const calendar = new CalendarController();
+	calendar.init();
 
-Calendar.startTime();
-
+	document.querySelector(".card")?.addEventListener("click", () => {
+		calendar.flip();
+	});
 });
-

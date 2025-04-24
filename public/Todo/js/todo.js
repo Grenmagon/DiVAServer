@@ -1,15 +1,24 @@
-import * as Todo from "./todoController.js";
+import { TodoController } from "./todoController.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-console.log("onLoad Todo");
-    document.getElementById("newTodo").addEventListener("keypress", (e) => {
-        if (e.key === "Enter") Weather.getWeather(); // optional
-    });
+	console.log("onLoad Todo");
 
-    const addBtn = document.getElementById("addTodo");
-    addBtn.addEventListener("click", Todo.addTodo);
-    const delAllBtn = document.getElementById("deleteAll");
-    delAllBtn.addEventListener("click", Todo.deleteAllTodos);
+	// Erstelle eine Instanz von TodoController
+	const todoController = new TodoController();
 
-    Todo.fetchTodos();
+	// Event-Listener für das Hinzufügen eines neuen ToDos
+	document.getElementById("newTodo").addEventListener("keypress", (e) => {
+		if (e.key === "Enter") todoController.addTodo(); // Aufruf der Instanzmethode
+	});
+
+	// Button für das Hinzufügen eines neuen ToDos
+	const addBtn = document.getElementById("addTodo");
+	addBtn.addEventListener("click", () => todoController.addTodo());
+
+	// Button für das Löschen aller ToDos
+	const delAllBtn = document.getElementById("deleteAll");
+	delAllBtn.addEventListener("click", () => todoController.deleteAllTodos());
+
+	// Initiale Todos abrufen
+	todoController.fetchTodos();
 });
