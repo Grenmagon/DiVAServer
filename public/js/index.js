@@ -96,7 +96,7 @@ function loadWidgets() {
     loadCalendar();
     loadWeather();
     loadNews();
-    // loadTODO(); // optional, wenn Sie TODOs benötigen
+    loadTODO(); // optional, wenn Sie TODOs benötigen
 }
 
 function loadWidgetsStyle() {
@@ -134,6 +134,7 @@ async function loadTODO() {
         const todoDiv = document.getElementById("TODO");
         if (todoDiv) {
             todoDiv.innerHTML = htmlContent;
+            Widgets.loadTodoWidget();
         } else {
             console.error("Das TODO-Div wurde nicht gefunden!");
         }

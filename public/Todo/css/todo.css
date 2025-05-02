@@ -1,0 +1,143 @@
+/* Todo Container */
+.todo-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.todo-container h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #e76642;
+}
+
+.todo-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.todo-input-group input[type="text"] {
+  flex-grow: 1;
+  padding: 0.8rem;
+  border: 1px solid var(--grey-border);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+
+}
+
+.todo-input-group button {
+  background: #232227;
+  color: var(--white);
+  border: none;
+  padding: 1.2 1.2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.todo-input-group button:hover {
+  background: #232227;
+}
+
+.todo-actions {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.todo-actions .danger {
+  background: var(--danger);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.todo-actions .danger:hover {
+  background: #c0392b;
+}
+
+/* Todo List */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  max-height: 400px;
+
+}
+
+.todo-list li {
+  display: flex;
+  align-items: center;
+  background: var(--bg-light);
+  margin-bottom: 0.5rem;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sanfter Schatten rundherum */
+}
+
+.todo-list li.done {
+  color: var(--grey);
+  text-decoration: line-through;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten auch bei abgehakten Todos */
+
+}
+
+.todo-list input[type="checkbox"] {
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--grey-border);
+  border-radius: 50%;
+  margin-right: 1rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+
+}
+
+.todo-list input[type="checkbox"]::before {
+  content: "✓";
+  font-size: 1rem;
+  color: transparent;
+
+}
+
+.todo-list input[type="checkbox"]:checked {
+  background: var(--grey-dark);
+  border-color: var(--grey-dark);
+
+}
+
+.todo-list input[type="checkbox"]:checked::before {
+  color: var(--white);
+}
+
+.todo-list span {
+  flex-grow: 1;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.todo-list button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--grey-dark);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.todo-list button:hover {
+  color: var(--grey-dark);
+  color: #e76642;
+}

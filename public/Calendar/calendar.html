@@ -2,82 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>CALENDAR</title>
   <link rel="stylesheet" href="../css/style.css">
 
   <script type="module" src="../sidebar/js/sidebar.js"></script>
   <script type="module" src="js/calendar.js"></script>
 </head>
-<!--
-<body onload="startTime()">
--->
-<body>
-<div id="SIDEBAR"></div>
 
+<body>
+
+<div id="SIDEBAR"></div>
 <div class="container">
   <div class="card">
     <div class="front">
-      <div class="contentfront">
+      <div class="content-front">
         <div class="month">
           <table>
-            <tr class="orangeTr">
-              <th>M</th>
-              <th>T</th>
-              <th>W</th>
-              <th>T</th>
-              <th>F</th>
-              <th>S</th>
-              <th>S</th>
+            <thead>
+            <tr class="orange-tr">
+              <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
             </tr>
-            <tr class="whiteTr">
-              <th></th>
-              <th>1</th>
-              <th>2</th>
-              <th>3</th>
-              <th>4</th>
-              <th>5</th>
-              <th>6</th>
-            </tr>
-            <tr class="whiteTr">
-              <th>7</th>
-              <th>8</th>
-              <th>9</th>
-              <th>10</th>
-              <th>11</th>
-              <th>12</th>
-              <th>13</th>
-            </tr>
-            <tr class="whiteTr">
-              <th>14</th>
-              <th>15</th>
-              <th>16</th>
-              <th>17</th>
-              <th>18</th>
-              <th>19</th>
-              <th>20</th>
-            </tr>
-            <tr class="whiteTr">
-              <th>21</th>
-              <th>22</th>
-              <th>23</th>
-              <th>24</th>
-              <th>25</th>
-              <th>26</th>
-              <th>27</th>
-            </tr>
-            <tr class="whiteTr">
-              <th>28</th>
-              <th>29</th>
-              <th>30</th>
-              <th>31</th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
+            </thead>
+            <tbody>
+            <!-- Fill your month dynamically later if needed -->
+            <tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+            <tr><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
+            <tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+            <tr><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td></tr>
+            <tr><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td></tr>
+            </tbody>
           </table>
         </div>
         <div class="date">
-          <div class="datecont">
+          <div class="date-container">
             <div id="date"></div>
             <div id="day"></div>
             <div id="month"></div>
@@ -86,9 +43,12 @@
         </div>
       </div>
     </div>
+
     <div class="back">
-      <div class="contentback">
-        <div class="backcontainer">
+      <div class="content-back">
+        <div class="back-container">
+          <h3>Events</h3>
+          <p>No events yet!</p>
         </div>
       </div>
     </div>

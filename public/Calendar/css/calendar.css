@@ -1,0 +1,128 @@
+/* Container */
+.container {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.card {
+  width: 350px;
+  height: 450px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  border-radius: 1rem;
+
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+
+}
+
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  colour: #e76642;
+  border-radius: 1rem;
+  backface-visibility: hidden;
+  overflow: hidden;
+
+}
+
+.front {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.back {
+  transform: rotateY(180deg);
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-front {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+}
+
+.month table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.month th {
+  padding: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+  color: #e76642;
+}
+
+.month td {
+  padding: 0.8rem 0;
+  color: #333;
+  font-weight: bold;
+}
+
+.date {
+  background: rgba(255,255,255,0.2);
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.date-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #232227;
+}
+
+.date-container #date {
+  font-size: 2.5rem;
+  color: #232227;
+}
+
+.date-container #day, .date-container #month {
+  font-size: 1rem;
+  color: #232227;
+}
+
+.edit {
+  margin-top: 1rem;
+  color: #232227;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.edit:hover {
+  color: #232227;
+}
+
+.content-back h3 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #e76642;
+}
+
+.content-back p {
+  font-size: 1.2rem;
+}

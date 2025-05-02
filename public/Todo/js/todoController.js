@@ -83,6 +83,7 @@ export async function deleteAllTodos() {
 }
 */
 
+
 export class TodoController {
 	constructor() {
 		this.list = document.getElementById("todoList");
@@ -155,7 +156,7 @@ export class TodoController {
 
 	async deleteTodo(id) {
 		await fetch(`/Todo/Entries/${id}`, {
-			method: "DELETE"
+		method: "DELETE"
 		});
 		this.fetchTodos();
 	}

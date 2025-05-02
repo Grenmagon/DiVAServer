@@ -73,6 +73,8 @@ export function loadNewsJSON() {
 import * as Helper from "../../js/helper.js";
 import { WeatherController } from "../../Weather/js/weatherController.js";
 import { NewsController } from "../../News/js/newsController.js";
+import { TodoController } from "../../Todo/js/todoController.js";
+import { CalendarController } from "../../Calendar/js/calendarController.js";
 
 // Funktion zum Laden von Kalenderdaten
 export async function loadCalendarWidget() {
@@ -125,3 +127,8 @@ export async function loadNewsWidget() {
 		console.error("Error loading news data", error);
 	}
 }
+	// Funktion zum Laden von ToDos-Daten
+    export async function loadTodoWidget() {
+    const todo = new TodoController();
+    todo.fetchTodos();
+    }

@@ -1,6 +1,8 @@
 import { TodoController } from "./todoController.js";
+import * as Helper from "../../js/helper.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+    Helper.loadCSS("/Todo/css/todo.css");
 	console.log("onLoad Todo");
 
 	// Erstelle eine Instanz von TodoController

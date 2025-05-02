@@ -2,129 +2,328 @@
 .weather-container {
 	background: rgba(255, 255, 255, 0.3);
 	width: 400px;
-	height: 300px;
+	height: 320px;
 	border-radius: 2rem;
-	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-	backdrop-filter: blur(10px);
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(15px);
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	text-align: center;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 60px;
+	margin-top: 40px;
+	overflow-x: auto;
+
 }
 
-button:hover {
-	background: #e76642;
-}
-
+/* TEMPERATURE */
 #temp-div p {
-	height: 40px;
-	width: 400px;
-	font-size: 50px;
-	margin-top: 20px;
-	color: #232227;
-
+	font-size: 48px;
+	color: #e76642;
+	margin: 10px 0 5px 0;
 }
 
+/* LOCATION + WEATHER INFO */
 #weather-info {
-	font-size: 10px;
-	display: #232227;
+	font-size: 14px;
+	color: #bbbbbb;
 }
 
+/* WEATHER ICON */
 #weather-icon {
-	width: 100px;
-	height: 100px;
-	margin: 0 auto 10px;
-	margin-bottom: 0;
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
 	display: none;
 }
 
+/* HOURLY FORECAST */
 #hourly-forecast {
-	margin-top: 10px;
+	margin-top: 15px;
 	overflow-x: auto;
 	white-space: nowrap;
 	display: flex;
-	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 0;
 }
 
+
+/* INDIVIDUAL HOURLY ITEM */
 .hourly-item {
 	flex: 0 0 auto;
-	width: 80px;
+	width: 70px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-right: 10px;
-	color: #232227;
+	color: #eeeeee;
+	font-size: 12px;
+	overflow-x: auto;
 }
 
 .hourly-item img {
-	width: 30px;
-	height: 30px;
+	width: 28px;
+	height: 28px;
 	margin-bottom: 5px;
+	overflow-x: auto;
 }
 
+/* HEADING */
 #hourly-heading {
-	color: #232227;
+	color: #ffffff;
+	font-size: 16px;
 	margin-top: 10px;
+	margin-bottom: 5px;
+	overflow-x: auto;
 }
 
-/* NEWS */
-
-
-.flex {
-	display: flex;
-	align-items: center;
+/* BUTTON HOVER */
+button:hover {
+	background: #ff5722;
 }
 
+/* NEWS SECTION */
 .news-container {
+	display: flex;
+    border-radius: 2rem;
+	overflow-x: auto;
+	width: 100%;
 	max-width: 1180px;
-	margin-inline: auto;
-	overflow: hidden;
-	height: 300px;
-	border-radius: 2rem;
+	background: rgba(255, 255, 255, 0.3);
 }
-
-.news-input {
-	width: 200px;
-	height: 100%;
-	padding-inline: 12px;
-	border-radius: 4px;
-	border: 2px solid #000000;
-	font-family: "Roboto", sans-serif;
+/* HEADING */
+#news-heading {
+	color: #ffffff;
+	margin: 40px 0 20px;
+	font-size: 28px;
 }
-
 
 .cards-container {
-	flex-wrap: wrap;
-	row-gap: 5px;
-	align-items: start;
+	display: flex;
+	gap: 3px;
+	background: rgba(255, 255, 255, 0.3);
 }
 
 .card {
-	width: 100px;
+	width: 180px;
 	height: 300px;
-	border-radius: 2rem;
-	box-shadow: 0 0 4px #bcbcbc;
-	border-radius: 4px;
+	border-radius: 1rem;
+	box-shadow: 0 0 6px #333;
 	cursor: pointer;
-	background-color: #fff;
 	overflow: hidden;
 	transition: all 0.3s ease;
+	flex-shrink: 0;
 }
 
 .card:hover {
-	box-shadow: 1px 1px 8px #bcbcbc;
-	background-color: #ec8669;
-	transform: translateY(-2px);
+	box-shadow: 2px 2px 10px #555;
+	background-color: #e76642;
+	transform: translateY(-4px);
 }
 
 .card-header img {
 	width: 100%;
-	height: 100px;
+	height: 120px;
 	object-fit: cover;
 }
 
 .card-content {
 	padding: 12px;
+	color: #ffffff;
 }
 
 .news-source {
 	margin-block: 5px;
+	font-size: 12px;
+	color: #ffffff;
+}
+
+/* TODOs-list CONTAINER */
+.todo-list-container {
+	background: rgba(255, 255, 255, 0.3);
+    width: 400px;
+    height: 320px;
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+    margin-top: 40px;
+
+}
+h2{
+color: #e76642;
+}
+
+.todo-list {
+  margin-top: 1rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+
+}
+
+.todo-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #232227;
+  margin-bottom: 0.5rem;
+}
+
+.todo-list li.done {
+  color: var(--grey);
+  text-decoration: line-through;
+
+}
+
+.todo-list input[type="checkbox"] {
+  appearance: none;
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--grey-border);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+}
+
+.todo-list input[type="checkbox"]::before {
+  content: "✓";
+  font-size: 1rem;
+  color: transparent;
+  color: #e76642;
+}
+
+.todo-list input[type="checkbox"]:checked {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.todo-list input[type="checkbox"]:checked::before {
+  color: var(--white);
+}
+
+.todo-list span {
+  flex-grow: 1;
+  font-size: 1rem;
+  word-break: break-word;
+  color: var(--white);
+
+}
+
+.todo-list button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--grey-dark);
+  transition: color 0.2s;
+}
+
+.todo-list button:hover {
+  color: var(--green);
+
+}
+
+/* Calendar Widget */
+.calendar-container {
+  color: #232227;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 400px;
+  height: 320px;
+  position: relative;
+  box-shadow: 0 1rem 2rem rgba(0, 23, 71, 0.1);
+  background: rgba(255, 255, 255, 0.3);
+  text-align: center;
+
+}
+
+.calendar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.calendar-top .date-number {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--orange);
+}
+
+.calendar-top .day-month {
+  text-align: right;
+}
+
+.calendar-top .day-month .day {
+  font-size: 1rem;
+  color: var(--grey-dark);
+}
+
+.calendar-top .day-month .month {
+  font-size: 0.8rem;
+  color: var(--grey-dark);
+}
+
+.calendar-table {
+  margin-top: 1rem;
+
+}
+
+.calendar-table table {
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  border-collapse: collapse;
+
+}
+
+.calendar-table th {
+  color: var(--grey-dark);
+  font-weight: 600;
+
+}
+
+.calendar-table td {
+  padding: 0.5rem;
+  color: var(--dark);
+  border-radius: 0.5rem;
+
+}
+
+.calendar-table td:hover {
+  background: var(--orange);
+  color: var(--white);
+  cursor: pointer;
+
+}
+/* Custom scrollbar for all scrollable widgets */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    color: #e76642;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    color: #e76642;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #232227;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #e76642;
 }

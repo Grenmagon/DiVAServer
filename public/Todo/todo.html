@@ -12,12 +12,19 @@
 <body>
 <div id="SIDEBAR"></div>
 
-<input type="text" id="newTodo" placeholder="Neuer Eintrag..." />
-<button id="addTodo">Hinzufügen</button>
-<button id="deleteAll">Alle löschen</button>
+<main class="todo-container">
+    <h1>Meine ToDo Liste</h1>
 
-<ul id="todoList"></ul>
+    <div class="todo-input-group">
+        <input type="text" id="newTodo" placeholder="Neuer Eintrag..." />
+        <button id="addTodo">Hinzufügen</button>
+    </div>
 
+    <div class="todo-actions">
+        <button id="deleteAll" class="danger">Alle löschen</button>
+    </div>
 
+    <ul id="todoList" class="todo-list"></ul>
+</main>
 </body>
 </html>
