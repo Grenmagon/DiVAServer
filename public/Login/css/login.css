@@ -1,0 +1,62 @@
+.login-container {
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #ffe81f;
+    text-shadow: 0 0 10px #ffe81f;
+}
+
+.login-form label {
+    display: block;
+    margin: 10px 0 5px;
+    text-align: left;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #222;
+    color: #fff;
+}
+
+.lightsaber-btn {
+    background: linear-gradient(90deg, #00ffe5, #00ccff);
+    color: black;
+    padding: 12px;
+    margin: 15px 0 0;
+    width: 100%;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    transition: all 0.3s ease;
+}
+
+.lightsaber-btn:hover {
+    box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+    transform: scale(1.05);
+}
+
+.quote {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ccc;
+    font-style: italic;
+}

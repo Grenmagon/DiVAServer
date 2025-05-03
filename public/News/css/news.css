@@ -18,6 +18,7 @@ ul {
 .flex {
     display: flex;
     align-items: center;
+    list-style: none;
 }
 
 .container {
@@ -29,24 +30,27 @@ ul {
 .nav {
     background-color: #e76642;
     box-shadow: 0 0 4px ;
-    position: fixed;
+    display: flex;
     top: 60;
     z-index: 99;
     left: 0;
     right: 0;
+    justify-content: space-between;
 }
 
 .main-nav {
     justify-content: space-between;
-    padding-block: 8px;
+    padding-block: 5px;
+
 }
 
 .company-logo img {
     width: 50px;
 }
 
-.nav-links ul {
+.nav-links {
     gap: 16px;
+    display: flex;
 }
 
 .hover-link {
@@ -66,17 +70,19 @@ ul {
 }
 
 .search-bar {
-    height: 32px;
-    gap: 8px;
+        display: block;
+        unicode-bidi: isolate;
+
 }
 
 .news-input {
     width: 200px;
     height: 100%;
-    padding-inline: 12px;
     border-radius: 4px;
     border: 2px solid #000000;
     font-family: "Roboto", sans-serif;
+    margin: 0px;
+    justify-content: center;
 }
 
 .search-button {
@@ -134,4 +140,92 @@ main {
 
 .news-source {
     margin-block: 12px;
+}
+/* Responsive Styles */
+
+@media (max-width: 1200px) {
+    .container {
+        padding-inline: 0px;
+    }
+
+    .nav-links {
+        gap: 12px;
+        display: flex;
+    }
+
+    .cards-container {
+        justify-content: center;
+    }
+
+    .card {
+        width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav {
+        top: 0;
+        display: flex;
+    }
+
+    .main-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links{
+        flex-direction: column;
+        gap: 10px;
+        display: flex;
+    }
+
+    .search-bar {
+        flex-direction: column;
+
+    }
+
+    .news-input {
+        width: 100%;
+    }
+
+    .search-button {
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .cards-container {
+        justify-content: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 360px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links {
+        gap: 8px;
+        display: flex;
+    }
+
+    .company-logo img {
+        width: 40px;
+    }
+
+    .news-input {
+        width: 100%;
+        margin-top: 0px;
+
+    }
+
+    .search-button {
+        width: 100%;
+
+    }
+
+    .card {
+        width: 100%;
+        max-width: 300px;
+    }
 }

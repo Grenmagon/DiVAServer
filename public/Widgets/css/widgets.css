@@ -1,8 +1,21 @@
+/* Global adjustments for better responsiveness */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
 /* WEATHER */
 .weather-container {
 	background: rgba(255, 255, 255, 0.3);
-	width: 400px;
-	height: 320px;
+	 width: 100%; /* Make it responsive */
+     max-width: 400px; /* Set a max-width */
+     height: auto; /* Allow height to adjust */
 	border-radius: 2rem;
 	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 	backdrop-filter: blur(15px);
@@ -89,6 +102,8 @@ button:hover {
 	width: 100%;
 	max-width: 1180px;
 	background: rgba(255, 255, 255, 0.3);
+    height: auto; /* Remove fixed height */
+    padding: 10px; /* Add padding for spacing */
 }
 /* HEADING */
 #news-heading {
@@ -101,6 +116,7 @@ button:hover {
 	display: flex;
 	gap: 3px;
 	background: rgba(255, 255, 255, 0.3);
+
 }
 
 .card {
@@ -140,8 +156,9 @@ button:hover {
 /* TODOs-list CONTAINER */
 .todo-list-container {
 	background: rgba(255, 255, 255, 0.3);
-    width: 400px;
-    height: 320px;
+     width: 100%; /* Make it responsive */
+     max-width: 400px;
+     height: auto; /* Allow dynamic height */
     border-radius: 2rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(15px);
@@ -239,8 +256,9 @@ color: #e76642;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 400px;
-  height: 320px;
+  width: 100%; /* Make it responsive */
+  max-width: 400px;
+  height: auto; /* Allow dynamic height */
   position: relative;
   box-shadow: 0 1rem 2rem rgba(0, 23, 71, 0.1);
   background: rgba(255, 255, 255, 0.3);

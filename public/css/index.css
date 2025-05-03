@@ -1,9 +1,8 @@
 .widgetDiv {
-	height: 300px;
-	width: 400px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
+	 width: 100%; /* Make it responsive */
+     max-width: 400px; /* Set a max-width */
+    height: auto; /* Allow height to adjust */
 	border-radius: 2rem;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 	margin: 20px;
 	display: flex;
 	justify-content: center;
