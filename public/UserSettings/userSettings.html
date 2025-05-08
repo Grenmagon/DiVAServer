@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Benutzereinstellungen</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="module" src="js/userSettings.js"></script>
+</head>
+<body>
+<h2>Benutzereinstellungen</h2>
+
+<form id="userForm">
+    <label for="nameGiven">Vorname:</label>
+    <input type="text" id="nameGiven" name="nameGiven" required>
+
+    <label for="nameFamily">Nachname:</label>
+    <input type="text" id="nameFamily" name="nameFamily" required>
+
+    <label for="login">Login (nicht änderbar):</label>
+    <input type="text" id="login" name="login" readonly>
+
+    <label for="newPassword">Neues Passwort:</label>
+    <input type="password" id="newPassword" name="newPassword">
+
+    <label for="confirmPassword">Passwort bestätigen:</label>
+    <input type="password" id="confirmPassword">
+
+    <label for="calendarId">Kalender-ID:</label>
+    <input type="text" id="calendarId" name="calendarId">
+
+    <label for="calendarKey">Kalender-Schlüssel:</label>
+    <input type="text" id="calendarKey" name="calendarKey">
+
+    <label for="homeCity">Heimatstadt:</label>
+    <input type="text" id="homeCity" name="homeCity">
+
+    <label for="mainNews">Haupt-News-Thema:</label>
+    <input type="text" id="mainNews" name="mainNews">
+
+    <label for="newsTopics">News-Themen (mit ; getrennt):</label>
+    <input type="text" id="newsTopics" name="newsTopics">
+
+    <label for="language">Sprache:</label>
+    <select id="language" name="language">
+        <option value="de">Deutsch</option>
+        <option value="en">Englisch</option>
+        <option value="fr">Französisch</option>
+    </select>
+
+    <button type="submit">Änderungen speichern</button>
+</form>
+
+</body>
+</html>

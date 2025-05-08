@@ -94,6 +94,9 @@ const city = document.getElementById("city").value;
 	xhttp.send();
 }
 */
+
+import * as Helper from "../../js/helper.js";
+
 export class WeatherController {
 	constructor() {
 		this.tempDivInfo = document.getElementById("temp-div");
@@ -167,10 +170,16 @@ export class WeatherController {
 
 		next24Hours.forEach(item => {
 			const { time: dateTime, temperature, iconUrl } = item;
+			console.log(dateTime);
+			const date = Helper.parseTimeToDate(dateTime); 
+			const time = Helper.formatTimeToHHMM(date);
+
+			console.log(date);
+			console.log(time);
 
 			const hourlyItemHtml = `
 		<div class="hourly-item">
-		  <span>${dateTime}</span>
+		  <span>${time}</span>
 		  <img src="${iconUrl}" alt="Hourly Weather Icon">
 		  <span>${Math.round(temperature)}°C</span>
 		</div>

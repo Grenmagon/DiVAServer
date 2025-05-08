@@ -115,7 +115,32 @@ export class NewsController {
 	}
 
 	init() {
+		this.loadNewsTopics();
 		this.setupSearchListener();
+	}
+
+	async loadNewsTopics() {
+		let output = "";
+		try {
+		const response = await fetch(`/JSON/newsTopics.json`, {
+			method: 'GET'
+		});
+		const data = await response.json();
+		console.log("lade newsTopics", data);
+
+		data.forEach(category => {
+			output += `<li class="hover-link nav-item" id="${category}" >${category}</li>`
+		});
+		} catch (error) {
+			console.error("Fehler beim Laden der News-Topics:", error);
+		}
+		const newsTopics = document.getElementById("newsTopics");
+		if (newsTopics) {
+			newsTopics.innerHTML = output;
+		} else {
+			console.error("Element newsTopics wurde nicht gefunden.");
+		}
+
 		this.setupNavListeners();
 	}
 

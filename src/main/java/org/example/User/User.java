@@ -3,12 +3,14 @@ package org.example.User;
 import org.example.Main;
 import org.example.Tools.TodoList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class User
 {
-
+    private static String LIST_DIVIDER = ";";
     private static Map<String, User> users = new HashMap<>(); // Login-User
 
     public enum Language
@@ -28,27 +30,38 @@ public class User
 
     private String homeCity = "";
     private String mainNews = "";
+    private List<String> newsTopics = new ArrayList<>();
     private Language language = null;
 
     private TodoList todoList = new TodoList();
 
-    public User(String nameFamily, String nameGiven, String login, String password)
+    public User( String login, String password)
     {
-        setNameFamily(nameFamily);
-        setNameGiven(nameGiven);
+        //setNameFamily(nameFamily);
+        //setNameGiven(nameGiven);
         setLogin(login);
         setPasswd(password);
+
+        //Default Werte
+        setLanguage(Language.en);
+        setMainNews("Wichtig");
+        setNewsTopics(List.of("Politik","Technik", "Finanzen"));
+        setHomeCity("Wien");
     }
 
-    public User(String nameFamily, String nameGiven, String login, String passwd, String calendarKey, String calendarId, String homeCity, String mainNews, Language language)
+    public User(String nameFamily, String nameGiven, String login, String passwd, String calendarKey, String calendarId, String homeCity, String mainNews, List<String> newsTopics, Language language)
     {
-        this(nameFamily,nameGiven,login,passwd);
+        this(login,passwd);
+
+        setNameFamily(nameFamily);
+        setNameGiven(nameGiven);
 
         setCalendarKey(calendarKey);
         setCalendarId(calendarId);
 
         setHomeCity(homeCity);
         setMainNews(mainNews);
+        setNewsTopics(newsTopics);
         setLanguage(language);
         //(System.out.println(getNameFamily());
     }
@@ -131,6 +144,26 @@ public class User
     public void setMainNews(String mainNews)
     {
         this.mainNews = mainNews;
+    }
+
+    public List<String> getNewsTopics()
+    {
+        return newsTopics;
+    }
+
+    public void setNewsTopics(List<String> newsTopics)
+    {
+        this.newsTopics = newsTopics;
+    }
+
+    public String getNewsTopicsString()
+    {
+        return String.join(LIST_DIVIDER, getNewsTopics());
+    }
+
+    public void setNewsTopicString(String newsTopicString)
+    {
+        setNewsTopics(List.of(newsTopicString));
     }
 
     public Language getLanguage()

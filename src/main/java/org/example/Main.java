@@ -4,6 +4,7 @@ package org.example;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.time.LocalDate;
+import java.util.List;
 
 import com.sun.net.httpserver.HttpServer;
 import org.example.APICalls.GoogleCalendar;
@@ -63,7 +64,7 @@ public class Main
     public static void testUsers()
     {
 
-        User w = new User("Prossinagg", "Wolfgang", "wp", "123", WOLFI_API_Key, WOLFI_CALENDAR_ID, "Vienna", "Warhammer", User.Language.en);
+        User w = new User("Prossinagg", "Wolfgang", "wp", "123", WOLFI_API_Key, WOLFI_CALENDAR_ID, "Vienna", "Warhammer", List.of("tech", "finance", "politics", "sport", "warhammer", "MTG", "Marvel"), User.Language.en);
 
         User.addUser(w);
 

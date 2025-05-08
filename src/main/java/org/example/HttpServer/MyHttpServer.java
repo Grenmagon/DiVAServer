@@ -1,5 +1,6 @@
 package org.example.HttpServer;
 
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.example.APICalls.GoogleCalendar;
@@ -41,6 +42,7 @@ public class MyHttpServer implements HttpHandler
 
     private static final Path LOGINPAGE = Paths.get("public" + "/Login/login.html");
     private static final String JSON = "/JSON/";
+    private static final String LOGIN = "/Login/";
     private static final String USERNAME_ID = "username";
     private static final String PASSWORD_ID = "password";
     private static final String PATH_PRE = "public";
@@ -105,11 +107,20 @@ public class MyHttpServer implements HttpHandler
     private boolean doGet(ExchangeValues ev) throws IOException
     {
         String urlPath = getNormalizedPath(ev.exchange);
-         if (urlPath.startsWith("/Todo/Entries/"))
+        if (urlPath.startsWith(JSON))
+        {
+            if (urlPath.contains("newsTopics.json"))
+            {
+                getNewsTopics(ev);
+                return true;
+            }
+        }
+        else if (urlPath.startsWith("/Todo/Entries/"))
         {
             getTodo(ev);
             return true;
         }
+
         return false;
     }
 
@@ -144,9 +155,20 @@ public class MyHttpServer implements HttpHandler
             postTodo(ev);
             return true;
         }
+        else if (urlPath.startsWith("/Login/addUser"))
+        {
+            postAddUser(ev);
+        }
+        else if (urlPath.startsWith("/logout"))
+        {
+            Session.removeSession(ev.exchange);
+            sendResponseString(ev.exchange, 200, "Success");
+            return true;
+        }
 
         return false;
     }
+
 
     private boolean doPut(ExchangeValues ev) throws IOException
     {
@@ -218,6 +240,13 @@ public class MyHttpServer implements HttpHandler
         sendResponseString(ev.exchange, 200, News.getNews(topic, from, to, language, size));
     }
 
+    private void getNewsTopics(ExchangeValues ev) throws IOException
+    {
+        List<String> topics = ev.getUser().getNewsTopics();
+        Gson gson = new Gson();
+        sendResponseString(ev.exchange, 200, gson.toJson(topics));
+    }
+
     private void getTodo(ExchangeValues ev) throws IOException
     {
         sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
@@ -274,19 +303,39 @@ public class MyHttpServer implements HttpHandler
         sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
     }
 
-    private void deleteMultipleTodos(ExchangeValues ev) throws IOException {
+    private void deleteMultipleTodos(ExchangeValues ev) throws IOException
+    {
         Map<String, String> params = parseFormData(ev.exchange);
         String idsStr = params.get("ids"); // Erwartet: "id1,id2,id3"
-        if (idsStr == null || idsStr.isEmpty()) {
+        if (idsStr == null || idsStr.isEmpty())
+        {
             sendResponseString(ev.exchange, 400, "Keine IDs angegeben");
             return;
         }
 
         String[] ids = idsStr.split(",");
-        for (String id : ids) {
+        for (String id : ids)
+        {
             ev.getUser().getTodoList().deleteEntry(id.trim());
         }
         sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+    }
+
+    private void postAddUser(ExchangeValues ev) throws IOException
+    {
+        Map<String, String> params = parseFormData(ev.exchange);
+        String username = params.get("userName");
+        String passwd = params.get("passwd");
+        System.out.println("username:" + username + " passwd" + passwd);
+        if (User.hasUser(username))
+        {
+            sendResponseString(ev.exchange, 409, "User ist schon vorhanden!");
+            return;
+        }
+        User user = new User(username, passwd);
+        User.addUser(user);
+        Session.createSessionId(ev.exchange, username);
+        sendResponseString(ev.exchange, 200, "Erfolg");
     }
 
 
@@ -321,7 +370,7 @@ public class MyHttpServer implements HttpHandler
     private boolean checkLogin(HttpExchange exchange) throws IOException
     {
         String urlPath = getNormalizedPath(exchange);
-        if (urlPath.startsWith(JSON) || urlPath.endsWith("html") /*|| urlPath.endsWith("js")*/)
+        if ( !urlPath.startsWith(LOGIN) && (urlPath.startsWith(JSON) || urlPath.endsWith("html")) /*|| urlPath.endsWith("js")*/)
         {
             if (exchange.getRequestMethod().equals("POST"))
             {
@@ -366,23 +415,27 @@ public class MyHttpServer implements HttpHandler
         os.close();
     }
 
-    public static Map<String, String> parseFormData(HttpExchange exchange) throws IOException {
+    public static Map<String, String> parseFormData(HttpExchange exchange) throws IOException
+    {
         Map<String, String> params = new HashMap<>();
 
         // 1. GET-Parameter aus URL
         String query = exchange.getRequestURI().getRawQuery();
-        if (query != null) {
+        if (query != null)
+        {
             parseQuery(query, params);
         }
 
         // 2. Body-Parameter aus POST, PUT oder DELETE
         String method = exchange.getRequestMethod().toUpperCase();
-        if (method.equals("POST") || method.equals("PUT") || method.equals("DELETE")) {
+        if (method.equals("POST") || method.equals("PUT") || method.equals("DELETE"))
+        {
             InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
             BufferedReader reader = new BufferedReader(isr);
             StringBuilder body = new StringBuilder();
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null)
+            {
                 body.append(line);
             }
             System.out.println("body: '" + body.toString() + "'");
@@ -392,7 +445,8 @@ public class MyHttpServer implements HttpHandler
         }
 
         System.out.println("Form data:");
-        for (Map.Entry<String, String> entry : params.entrySet()) {
+        for (Map.Entry<String, String> entry : params.entrySet())
+        {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
 
@@ -400,11 +454,13 @@ public class MyHttpServer implements HttpHandler
     }
 
 
-    public static void parseQuery(String query, Map<String, String> params) throws UnsupportedEncodingException {
+    public static void parseQuery(String query, Map<String, String> params) throws UnsupportedEncodingException
+    {
         if (query == null || query.isEmpty()) return;
 
         String[] pairs = query.split("&");
-        for (String pair : pairs) {
+        for (String pair : pairs)
+        {
             String[] parts = pair.split("=", 2);
             String key = URLDecoder.decode(parts[0], StandardCharsets.UTF_8);
             String value = parts.length > 1 ? URLDecoder.decode(parts[1], StandardCharsets.UTF_8) : "";

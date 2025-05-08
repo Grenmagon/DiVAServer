@@ -78,25 +78,23 @@ import { CalendarController } from "../../Calendar/js/calendarController.js";
 
 // Funktion zum Laden von Kalenderdaten
 export async function loadCalendarWidget() {
+	const calendar = new CalendarController();
 	const from = Helper.getCurrentDate();
 	const to = Helper.getCurrentDate();
+
 	try {
-		const response = await fetch(`/JSON/calendar.json?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`, {
-			method: 'POST'
-		});
-		const data = await response.json();
-		console.log("fülle Calendar Widget", data);
-
-		let output = "";
-		data.appointments.forEach(event => {
-			output += `<div><strong>${event.name}</strong><br>${event.from}</div>`;
-		});
-
-		document.getElementById("CalendarWidget").innerHTML = output;
+		const output = await calendar.loadAppointments(from, to);
+		const calendarDiv = document.getElementById("CalendarWidget");
+		if (calendarDiv) {
+			calendarDiv.innerHTML = output;
+		} else {
+			console.error("Element #CalendarWidget wurde nicht gefunden.");
+		}
 	} catch (error) {
 		console.error("Error loading calendar data", error);
 	}
 }
+
 
 // Funktion zum Laden von Wetterdaten
 export async function loadWeatherWidget() {
@@ -127,8 +125,9 @@ export async function loadNewsWidget() {
 		console.error("Error loading news data", error);
 	}
 }
-	// Funktion zum Laden von ToDos-Daten
-    export async function loadTodoWidget() {
-    const todo = new TodoController();
-    todo.fetchTodos();
-    }
+
+// Funktion zum Laden von ToDos-Daten
+export async function loadTodoWidget() {
+	const todo = new TodoController();
+	todo.fetchTodos();
+}

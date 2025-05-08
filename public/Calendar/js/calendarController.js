@@ -20,6 +20,35 @@ export class CalendarController {
 		this.startTime();
 	}
 
+	async fillBackSide(from, to)
+	{
+		try {
+			const output = await this.loadAppointments(from, to);
+			const calendarDiv = document.getElementById("calendarBackside");
+			if (calendarDiv) {
+				calendarDiv.innerHTML = output;
+			} else {
+				console.error("Element calendarBackside wurde nicht gefunden.");
+			}
+		} catch (error) {
+			console.error("Error loading calendar data", error);
+		}
+	}
+
+	async loadAppointments(from, to) {
+		const response = await fetch(`/JSON/calendar.json?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`, {
+			method: 'POST'
+		});
+		const data = await response.json();
+		console.log("lade appointments", data);
+
+		let output = "";
+		data.appointments.forEach(event => {
+			output += `<div><strong>${event.name}</strong><br>${event.from}</div>`;
+		});
+		return output;
+	}
+
 	flip() {
 		console.log("flip");
 		this.cardElement?.classList.toggle("flipped");

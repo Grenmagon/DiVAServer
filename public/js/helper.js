@@ -37,3 +37,26 @@ export function loadCSS(cssUrl) {
 	link.href = cssUrl;
 	document.head.appendChild(link);
 }
+
+export function parseTimeToDate(timeStr) {
+    // Beispielinput: "09:00:00 PM"
+    const [time, modifier] = timeStr.trim().split(' ');
+    let [hours, minutes, seconds] = time.split(':').map(Number);
+
+    if (modifier === 'PM' && hours < 12) {
+        hours += 12;
+    } else if (modifier === 'AM' && hours === 12) {
+        hours = 0;
+    }
+
+    // Erzeuge ein Date mit festem Datum (z. B. 1970-01-01)
+    return new Date(1970, 0, 1, hours, minutes, seconds);
+}
+
+export function formatTimeToHHMM(date) {
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+}
+
+
