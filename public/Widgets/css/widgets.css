@@ -1,4 +1,4 @@
-/* Global adjustments for better responsiveness */
+/* === Allgemeine Anpassungen === */
 *,
 *::before,
 *::after {
@@ -10,118 +10,95 @@ body {
     padding: 0;
 }
 
-/* WEATHER */
-.weather-container {
-	background: rgba(255, 255, 255, 0.3);
-	 width: 100%; /* Make it responsive */
-     max-width: 400px; /* Set a max-width */
-     height: auto; /* Allow height to adjust */
-	border-radius: 2rem;
-	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-	backdrop-filter: blur(15px);
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 60px;
-	margin-top: 40px;
-	overflow-x: auto;
+/* === Zentrale Widget-Container-Klasse === */
+.widgets-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* === Widget-Grundstruktur === */
+.widget-container {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    width: 400px;
+    height: 400px;
+    padding: 20px;
+    box-sizing: border-box;
 
 }
 
-/* TEMPERATURE */
+/* === Wetter-Widget === */
+.weather {}
+
 #temp-div p {
-	font-size: 48px;
-	color: #e76642;
-	margin: 10px 0 5px 0;
+    font-size: 48px;
+    color: var(--orange, #e76642);
+    margin: 10px 0 5px 0;
 }
 
-/* LOCATION + WEATHER INFO */
 #weather-info {
-	font-size: 14px;
-	color: #bbbbbb;
+    font-size: 14px;
 }
 
-/* WEATHER ICON */
 #weather-icon {
-	width: 80px;
-	height: 80px;
-	margin: 0 auto;
-	display: none;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: none;
 }
 
-/* HOURLY FORECAST */
 #hourly-forecast {
-	margin-top: 15px;
-	overflow-x: auto;
-	white-space: nowrap;
-	display: flex;
-	gap: 12px;
-	padding: 10px 0;
+    margin-top: 15px;
+    overflow-y: auto;
+    max-width: 100%;
+    height:100%;
+    white-space: nowrap;
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
 }
 
-
-/* INDIVIDUAL HOURLY ITEM */
 .hourly-item {
-	flex: 0 0 auto;
-	width: 70px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	color: #eeeeee;
-	font-size: 12px;
-	overflow-x: auto;
+    flex: 0 0 auto;
+    width: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #eeeeee;
+    font-size: 12px;
 }
 
 .hourly-item img {
-	width: 28px;
-	height: 28px;
-	margin-bottom: 5px;
-	overflow-x: auto;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 5px;
 }
 
-/* HEADING */
-#hourly-heading {
-	color: #ffffff;
-	font-size: 16px;
-	margin-top: 10px;
-	margin-bottom: 5px;
-	overflow-x: auto;
-}
-
-/* BUTTON HOVER */
-button:hover {
-	background: #ff5722;
-}
-
-/* NEWS SECTION */
-.news-container {
-	display: flex;
-    border-radius: 2rem;
-	overflow-x: auto;
-	width: 100%;
-	max-width: 1180px;
-	background: rgba(255, 255, 255, 0.3);
-    height: auto; /* Remove fixed height */
-    padding: 10px; /* Add padding for spacing */
-}
-/* HEADING */
-#news-heading {
-	color: #ffffff;
-	margin: 40px 0 20px;
-	font-size: 28px;
+/* === News-Widget === */
+.news {
+    /* Platzhalter für news-spezifische Styles */
 }
 
 .cards-container {
-	display: flex;
-	gap: 3px;
-	background: rgba(255, 255, 255, 0.3);
-
+    display: flex;
+    overflow-y: auto;
+    width: 100%
 }
 
 .card {
 	width: 180px;
-	height: 300px;
+	height: 100%;
 	border-radius: 1rem;
 	box-shadow: 0 0 6px #333;
 	cursor: pointer;
@@ -129,7 +106,6 @@ button:hover {
 	transition: all 0.3s ease;
 	flex-shrink: 0;
 }
-
 .card:hover {
 	box-shadow: 2px 2px 10px #555;
 	background-color: #e76642;
@@ -153,195 +129,13 @@ button:hover {
 	color: #ffffff;
 }
 
-/* TODOs-list CONTAINER */
-.todo-list-container {
-	background: rgba(255, 255, 255, 0.3);
-     width: 100%; /* Make it responsive */
-     max-width: 400px;
-     height: auto; /* Allow dynamic height */
-    border-radius: 2rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 60px;
-    margin-top: 40px;
-
-}
-h2{
-color: #e76642;
+/* === Kalender-Widget === */
+.calendar {
+    /* Platzhalter für kalender-spezifische Styles */
 }
 
-.todo-list {
-  margin-top: 1rem;
-  flex-grow: 1;
-  overflow-y: auto;
-  list-style: none;
-  padding: 0;
-
+/* === TODO-Widget === */
+.todo {
+    /* Platzhalter für todo-spezifische Styles */
 }
 
-.todo-list li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #232227;
-  margin-bottom: 0.5rem;
-}
-
-.todo-list li.done {
-  color: var(--grey);
-  text-decoration: line-through;
-
-}
-
-.todo-list input[type="checkbox"] {
-  appearance: none;
-  cursor: pointer;
-  width: 1.5rem;
-  height: 1.5rem;
-  border: 2px solid var(--grey-border);
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-
-}
-
-.todo-list input[type="checkbox"]::before {
-  content: "✓";
-  font-size: 1rem;
-  color: transparent;
-  color: #e76642;
-}
-
-.todo-list input[type="checkbox"]:checked {
-  background: var(--green);
-  border-color: var(--green);
-}
-
-.todo-list input[type="checkbox"]:checked::before {
-  color: var(--white);
-}
-
-.todo-list span {
-  flex-grow: 1;
-  font-size: 1rem;
-  word-break: break-word;
-  color: var(--white);
-
-}
-
-.todo-list button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: var(--grey-dark);
-  transition: color 0.2s;
-}
-
-.todo-list button:hover {
-  color: var(--green);
-
-}
-
-/* Calendar Widget */
-.calendar-container {
-  color: #232227;
-  border-radius: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%; /* Make it responsive */
-  max-width: 400px;
-  height: auto; /* Allow dynamic height */
-  position: relative;
-  box-shadow: 0 1rem 2rem rgba(0, 23, 71, 0.1);
-  background: rgba(255, 255, 255, 0.3);
-  text-align: center;
-
-}
-
-.calendar-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-}
-
-.calendar-top .date-number {
-  font-size: 3rem;
-  font-weight: bold;
-  color: var(--orange);
-}
-
-.calendar-top .day-month {
-  text-align: right;
-}
-
-.calendar-top .day-month .day {
-  font-size: 1rem;
-  color: var(--grey-dark);
-}
-
-.calendar-top .day-month .month {
-  font-size: 0.8rem;
-  color: var(--grey-dark);
-}
-
-.calendar-table {
-  margin-top: 1rem;
-
-}
-
-.calendar-table table {
-  width: 100%;
-  text-align: center;
-  font-size: 0.9rem;
-  border-collapse: collapse;
-
-}
-
-.calendar-table th {
-  color: var(--grey-dark);
-  font-weight: 600;
-
-}
-
-.calendar-table td {
-  padding: 0.5rem;
-  color: var(--dark);
-  border-radius: 0.5rem;
-
-}
-
-.calendar-table td:hover {
-  background: var(--orange);
-  color: var(--white);
-  cursor: pointer;
-
-}
-/* Custom scrollbar for all scrollable widgets */
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    color: #e76642;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-    color: #e76642;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #232227;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: #e76642;
-}

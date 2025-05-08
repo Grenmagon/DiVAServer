@@ -77,7 +77,7 @@ public class GoogleCalendar
             JsonObject start = event.getAsJsonObject("start");
             a.from = start.has("dateTime") ? start.get("dateTime").getAsString() : start.get("date").getAsString();
             JsonObject end = event.getAsJsonObject("end");
-            a.to = end.has("dateTime") ? start.get("dateTime").getAsString() : start.get("date").getAsString();
+            a.to = end.has("dateTime") ? end.get("dateTime").getAsString() : end.get("date").getAsString();
 
             appointments.add(a);
         }

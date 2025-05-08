@@ -170,12 +170,8 @@ export class WeatherController {
 
 		next24Hours.forEach(item => {
 			const { time: dateTime, temperature, iconUrl } = item;
-			console.log(dateTime);
 			const date = Helper.parseTimeToDate(dateTime); 
 			const time = Helper.formatTimeToHHMM(date);
-
-			console.log(date);
-			console.log(time);
 
 			const hourlyItemHtml = `
 		<div class="hourly-item">

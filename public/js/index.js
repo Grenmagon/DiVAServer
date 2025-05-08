@@ -101,6 +101,7 @@ function loadWidgets() {
 
 function loadWidgetsStyle() {
     Helper.loadCSS("/Widgets/css/widgets.css");
+    Helper.loadCSS("/Todo/css/todo.css");
 }
 
 async function loadWeather() {

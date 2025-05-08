@@ -51,6 +51,7 @@ ul {
 .nav-links {
     gap: 16px;
     display: flex;
+    color: white;
 }
 
 .hover-link {

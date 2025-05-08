@@ -42,12 +42,57 @@ export class CalendarController {
 		const data = await response.json();
 		console.log("lade appointments", data);
 
+
 		let output = "";
+		/*
 		data.appointments.forEach(event => {
 			output += `<div><strong>${event.name}</strong><br>${event.from}</div>`;
 		});
+		*/
+		output = this.renderAppointments(data.appointments);
 		return output;
 	}
+
+	renderAppointments(appointments) {
+    	const container = document.createElement("div");
+
+    	appointments.forEach(entry => {
+    		const div = document.createElement("div");
+    		div.className = "appointment-item";
+
+    		// Name
+    		const name = document.createElement("strong");
+    		name.textContent = entry.name;
+
+    		// Datum & Zeit formatieren
+    		const fromDate = new Date(entry.from);
+    		const toDate = new Date(entry.to);
+
+    		// Lokales Datum + Zeit (falls Uhrzeit enthalten ist)
+    		const optionsDate = { year: 'numeric', month: 'short', day: 'numeric' };
+    		const optionsTime = { hour: '2-digit', minute: '2-digit' };
+
+    		const dateStrFrom = fromDate.toLocaleDateString("de-AT", optionsDate);
+    		const timeStrFrom = entry.from.includes("T")
+    			? `, ${fromDate.toLocaleTimeString("de-AT", optionsTime)}`
+    			: "";
+
+    		const dateStrTo = toDate.toLocaleDateString("de-AT", optionsDate);
+            const timeStrTo = entry.to.includes("T")
+                ? `, ${toDate.toLocaleTimeString("de-AT", optionsTime)}`
+                : "";
+
+    		const info = document.createElement("div");
+    		info.textContent = `${dateStrFrom}${timeStrFrom} - ${dateStrTo}${timeStrTo}`;
+
+    		div.appendChild(name);
+    		div.appendChild(info);
+    		container.appendChild(div);
+    	});
+
+    	return container.outerHTML;
+    }
+
 
 	flip() {
 		console.log("flip");
