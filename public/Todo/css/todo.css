@@ -2,10 +2,10 @@
 .todo-container {
   max-width: 600px;
   margin: 0 auto;
-  background: rgba(255, 255, 255, 0.3);
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  /*background: rgba(255, 255, 255, 0.3);*/
+  padding: var(--spacing);
+  /*border-radius: 1rem;*/
+  /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);*/
 }
 
 .todo-container h1 {

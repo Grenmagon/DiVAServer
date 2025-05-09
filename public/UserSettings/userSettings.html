@@ -1,54 +1,62 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Benutzereinstellungen</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script type="module" src="../sidebar/js/sidebar.js"></script>
     <script type="module" src="js/userSettings.js"></script>
 </head>
 <body>
-<h2>Benutzereinstellungen</h2>
+<nav id="SIDEBAR"></nav>
 
-<form id="userForm">
-    <label for="nameGiven">Vorname:</label>
-    <input type="text" id="nameGiven" name="nameGiven" required>
+<main>
+    <div class="widget userSettings">
+        <h2>Benutzereinstellungen</h2>
 
-    <label for="nameFamily">Nachname:</label>
-    <input type="text" id="nameFamily" name="nameFamily" required>
+        <form id="userForm" autocomplete="off">
+            <label for="nameGiven">Vorname:</label>
+            <input type="text" class="settingsField" id="nameGiven" name="nameGiven" required>
 
-    <label for="login">Login (nicht änderbar):</label>
-    <input type="text" id="login" name="login" readonly>
+            <label for="nameFamily">Nachname:</label>
+            <input type="text" class="settingsField" id="nameFamily" name="nameFamily" required>
 
-    <label for="newPassword">Neues Passwort:</label>
-    <input type="password" id="newPassword" name="newPassword">
+            <label for="login">Login (nicht änderbar):</label>
+            <input type="text" class="settingsField" id="login" name="login" readonly>
 
-    <label for="confirmPassword">Passwort bestätigen:</label>
-    <input type="password" id="confirmPassword">
+            <label for="newPassword">Neues Passwort:</label>
+            <input type="password" class="settingsField" id="newPassword" name="newPassword" minlength="6">
 
-    <label for="calendarId">Kalender-ID:</label>
-    <input type="text" id="calendarId" name="calendarId">
+            <label for="confirmPassword">Passwort bestätigen:</label>
+            <input type="password" class="settingsField" id="confirmPassword" name="confirmPassword" minlength="6">
 
-    <label for="calendarKey">Kalender-Schlüssel:</label>
-    <input type="text" id="calendarKey" name="calendarKey">
+            <label for="calendarId">Kalender-ID:</label>
+            <input type="text" class="settingsField" id="calendarId" name="calendarId">
 
-    <label for="homeCity">Heimatstadt:</label>
-    <input type="text" id="homeCity" name="homeCity">
+            <label for="calendarKey">Kalender-Schlüssel:</label>
+            <input type="text" class="settingsField" id="calendarKey" name="calendarKey">
 
-    <label for="mainNews">Haupt-News-Thema:</label>
-    <input type="text" id="mainNews" name="mainNews">
+            <label for="homeCity">Heimatstadt:</label>
+            <input type="text" class="settingsField" id="homeCity" name="homeCity">
 
-    <label for="newsTopics">News-Themen (mit ; getrennt):</label>
-    <input type="text" id="newsTopics" name="newsTopics">
+            <label for="mainNews">Haupt-News-Thema:</label>
+            <input type="text" class="settingsField" id="mainNews" name="mainNews">
 
-    <label for="language">Sprache:</label>
-    <select id="language" name="language">
-        <option value="de">Deutsch</option>
-        <option value="en">Englisch</option>
-        <option value="fr">Französisch</option>
-    </select>
+            <label for="newsTopics">News-Themen (mit ; getrennt):</label>
+            <input type="text" class="settingsField" id="newsTopics" name="newsTopics">
 
-    <button type="submit">Änderungen speichern</button>
-</form>
+            <label for="language">Sprache:</label>
+            <select id="language"  class="settingsField" name="language">
+                <option value="de">Deutsch</option>
+                <option value="en">Englisch</option>
+                <option value="fr">Französisch</option>
+            </select>
 
+            <button type="submit">Änderungen speichern</button>
+        </form>
+    </div>
+</main>
 </body>
 </html>

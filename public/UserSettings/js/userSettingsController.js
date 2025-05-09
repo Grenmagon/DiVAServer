@@ -30,7 +30,7 @@ export class UserSettingsController {
 		});
 	}
 
-	async function sendChange() {
+	async sendChange() {
 		const newPassword = document.getElementById("newPassword").value.trim();
 		const confirmPassword = document.getElementById("confirmPassword").value.trim();
 

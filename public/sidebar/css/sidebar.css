@@ -7,29 +7,17 @@
 	padding: 10px;
 }
 
-nav.sidebar{
+.sidebar{
 	background-color: var(--color-background);
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
 }
 
-nav.sidebar a{
-	height: 100%;
-	padding: 0 20px;
-	display: flex;
-	align-items: center;
-	text-decoration: none;
-	color: var(--text-color);
-}
-
-nav.sidebar a:hover{
-	background-color: var(--accent-color);
-}
-nav.sidebar .home-link{
+.sidebar .home-link{
 	margin-right: auto;
 }
-nav.sidebar svg{
+.sidebar svg{
 	fill: var(--text-color);
 }
 #sidebar-active{
@@ -40,39 +28,11 @@ nav.sidebar svg{
 }
 /* Responsive Styles */
 
-@media (max-width: 1024px) {
-    .links-container {
-        flex-direction: column;  /* Stack links vertically on tablets */
-    }
 
-    nav.sidebar {
-        justify-content: space-between; /* Align the buttons on smaller screens */
+@media (max-width: 750px) {
+    body {
+        /*grid-template-rows: 200px auto;*/
     }
-
-    nav.sidebar a {
-        padding: 0 15px;  /* Slightly reduce padding for smaller screens */
-    }
-
-    nav.sidebar .home-link {
-        margin-right: 0;  /* Remove extra margin */
-    }
-}
-
-@media (max-width: 768px) {
-    nav.sidebar {
-        height: 50px;  /* Decrease sidebar height for smaller screens */
-    }
-
-    nav.sidebar a {
-        padding: 0 10px;  /* Reduce padding for mobile screens */
-    }
-
-    nav.sidebar .home-link {
-        margin-right: 0;  /* Ensure the home link aligns properly */
-    }
-}
-
-@media (max-width: 480px) {
     .links-container {
         flex-direction: column;  /* Stack the links vertically on very small screens */
     }
@@ -87,8 +47,7 @@ nav.sidebar svg{
         padding: 10px 0;  /* Increase padding for mobile usability */
         text-align: center;  /* Center align links */
     }
-
-
-
-
+    .sidebar .home-link{
+    	margin-right: revert;
+    }
 }

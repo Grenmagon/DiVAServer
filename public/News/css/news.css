@@ -27,15 +27,14 @@ ul {
     overflow: hidden;
 }
 
-.nav {
-    background-color: #e76642;
-    box-shadow: 0 0 4px ;
-    display: flex;
-    top: 60;
-    z-index: 99;
-    left: 0;
-    right: 0;
-    justify-content: space-between;
+.news-filter {
+    overflow:auto;
+    margin: var(--spacing);
+}
+
+.news-filter .menue:hover{
+	background-color: var(--accent-color);
+	color: white;
 }
 
 .main-nav {
@@ -73,7 +72,7 @@ ul {
 .search-bar {
         display: block;
         unicode-bidi: isolate;
-
+    margin-bottom: var(--spacing);
 }
 
 .news-input {
@@ -143,7 +142,7 @@ main {
     margin-block: 12px;
 }
 /* Responsive Styles */
-
+/*
 @media (max-width: 1200px) {
     .container {
         padding-inline: 0px;
@@ -230,3 +229,4 @@ main {
         max-width: 300px;
     }
 }
+*/

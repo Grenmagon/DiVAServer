@@ -12,30 +12,19 @@
 
 </head>
 <body>
-<div id="SIDEBAR"></div>
-<div id="NEWS_TOPICS">
-    <nav>
-        <div class="main-nav container flex">
-            <div class="nav-links" id="newsTopics">
-                <!--
-                    <li class="hover-link nav-item" id="tech" >Technic</li>
-                    <li class="hover-link nav-item" id="finance" >Finance</li>
-                    <li class="hover-link nav-item" id="politics" >Politics</li>
-                    <li class="hover-link nav-item" id="sport" >Sport</li>
-                    <li class="hover-link nav-item" id="warhammer" >Warhammer</li>
-                    <li class="hover-link nav-item" id="MTG" >MTG</li>
-                    <li class="hover-link nav-item" id="Marvel" >Marvel</li>
-                    -->
-            </div>
-            <div class="search-bar flex">
-                <input id="search-text" type="text" class="news-input" placeholder="e.g. Science">
-                <button id="search-button" class="search-button">Search</button>
+<nav id="SIDEBAR"></nav>
+<main>
+    <div id="NEWS_TOPICS">
+        <div class="widget news-filter">
+            <div class="main-nav container flex">
+                <div class="nav-links" id="newsTopics"></div>
+                <div class="search-bar flex">
+                    <input id="search-text" type="text" class="news-input" placeholder="e.g. Science">
+                    <button id="search-button" class="search-button">Search</button>
+                </div>
             </div>
         </div>
-    </nav>
-</div>
-
-<main>
+    </div>
     <div class="cards-container container flex" id="cards-container">
 
     </div>
@@ -49,7 +38,8 @@
         <div class="card-content">
             <h3 id="news-title">This is the Title</h3>
             <h6 class="news-source" id="news-source">End Gadget 26/08/2023</h6>
-            <p class="news-desc" id="news-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae saepe quis voluptatum quisquam vitae doloremque facilis molestias quae ratione cumque!</p>
+            <p class="news-desc" id="news-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae
+                saepe quis voluptatum quisquam vitae doloremque facilis molestias quae ratione cumque!</p>
         </div>
     </div>
 </template>

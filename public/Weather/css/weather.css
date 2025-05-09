@@ -1,20 +1,14 @@
 .weather-container {
-    background: rgba(255, 255, 255, 0.3);
     max-width: 400px;
-    width: 90%; /* responsive */
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    justify-content: center;
     align-items: center;
     margin: auto;
+    width: 90%; /* responsive */
+    display: revert;
+    padding: var(--spacing);
 }
 
 .label, p {
-    color: #232227;
+    color: var(--widget-background);
     margin: 8px 0;
     color: #e76642;
 }
@@ -30,11 +24,11 @@ color: #e76642;
     border: 1px solid white;
     margin-top: 20px;
     background: #ecece7;
-    color: #232227;
+    color: var(--widget-background);
 }
 
 .button {
-    background: #232227;
+    background: var(--widget-background);
     color: white;
     padding: 10px;
     border: none;
@@ -92,6 +86,6 @@ button:hover {
 }
 
 #hourly-heading {
-    color: #232227;
+    color: var(--widget-background);
     margin-top: 10px;
 }

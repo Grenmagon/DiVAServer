@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Todo</title>
     <link rel="stylesheet" href="../css/style.css">
 
@@ -10,21 +10,22 @@
     <script type="module" src="js/todo.js"></script>
 </head>
 <body>
-<div id="SIDEBAR"></div>
+<nav id="SIDEBAR"></nav>
+<main>
+    <div class="widget todo-container">
+        <h1>Meine ToDo Liste</h1>
 
-<main class="todo-container">
-    <h1>Meine ToDo Liste</h1>
+        <div class="todo-input-group">
+            <input type="text" id="newTodo" placeholder="Neuer Eintrag..."/>
+            <button id="addTodo">Hinzufügen</button>
+        </div>
 
-    <div class="todo-input-group">
-        <input type="text" id="newTodo" placeholder="Neuer Eintrag..." />
-        <button id="addTodo">Hinzufügen</button>
+        <div class="todo-actions">
+            <button id="deleteAll" class="danger">Alle löschen</button>
+        </div>
+
+        <ul id="todoList" class="todo-list"></ul>
     </div>
-
-    <div class="todo-actions">
-        <button id="deleteAll" class="danger">Alle löschen</button>
-    </div>
-
-    <ul id="todoList" class="todo-list"></ul>
 </main>
 </body>
 </html>

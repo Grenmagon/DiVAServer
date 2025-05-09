@@ -129,7 +129,7 @@ export class NewsController {
 		console.log("lade newsTopics", data);
 
 		data.forEach(category => {
-			output += `<li class="hover-link nav-item" id="${category}" >${category}</li>`
+			output += `<li class="menue hover-link nav-item" id="${category}" >${category}</li>`
 		});
 		} catch (error) {
 			console.error("Fehler beim Laden der News-Topics:", error);
