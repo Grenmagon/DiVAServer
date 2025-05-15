@@ -25,10 +25,16 @@ public class MyHttpServer implements HttpHandler
         public boolean status = true;
         Session session;
         HttpExchange exchange;
+        Map<String, String> params;
 
-        ExchangeValues(HttpExchange exchange)
+        ExchangeValues(HttpExchange exchange) throws IOException
         {
             this.exchange = exchange;
+            params = parseFormData(exchange);
+        }
+
+        void setSession()
+        {
             session = getSession(exchange);
             if (session == null)
                 status = false;
@@ -41,7 +47,7 @@ public class MyHttpServer implements HttpHandler
     }
 
     private static final Path LOGINPAGE = Paths.get("public" + "/Login/login.html");
-    private static final String JSON = "/JSON/";
+    private static final String API = "/API/";
     private static final String LOGIN = "/Login/";
     private static final String USERNAME_ID = "username";
     private static final String PASSWORD_ID = "password";
@@ -53,18 +59,18 @@ public class MyHttpServer implements HttpHandler
         String urlPath = getNormalizedPath(exchange);
         System.out.println("handle: " + urlPath);
 
+        ExchangeValues ev = new ExchangeValues(exchange);
 
-        if (!checkLogin(exchange))
+        if (!checkLogin(ev))
         {
-            sendLoginPage(exchange);
+            sendLoginPage(ev.exchange);
             return;
         }
+        ev.setSession();
         System.out.println("UrlPath:" + urlPath);
-        ExchangeValues ev = new ExchangeValues(exchange);
 
         String method = exchange.getRequestMethod();
         System.out.println("Method: " + exchange.getRequestMethod());
-
 
         //Auf Http-Request-Typ reagieren
         if (method.equals("GET"))
@@ -107,15 +113,19 @@ public class MyHttpServer implements HttpHandler
     private boolean doGet(ExchangeValues ev) throws IOException
     {
         String urlPath = getNormalizedPath(ev.exchange);
-        if (urlPath.startsWith(JSON))
+
+        if (urlPath.startsWith(API + "newsTopics.json"))
         {
-            if (urlPath.contains("newsTopics.json"))
-            {
-                getNewsTopics(ev);
-                return true;
-            }
+            getNewsTopics(ev);
+            return true;
         }
-        else if (urlPath.startsWith("/Todo/Entries/"))
+        else if (urlPath.startsWith(API + "settings.json"))
+        {
+            getSettings(ev);
+            return true;
+        }
+
+        else if (urlPath.startsWith(API + "Todo/Entries.json"))
         {
             getTodo(ev);
             return true;
@@ -126,36 +136,41 @@ public class MyHttpServer implements HttpHandler
 
     private boolean doPost(ExchangeValues ev) throws IOException
     {
+        System.out.println("DOPOST!!!");
         String urlPath = getNormalizedPath(ev.exchange);
-        if (urlPath.startsWith(JSON))
+
+        System.out.println(API);
+        if (urlPath.startsWith(API + "calendar.json"))
         {
-            if (urlPath.contains("calendar.json"))
-            {
-                loadCalendar(ev);
-                return true;
-            }
-            else if (urlPath.contains("weather.json"))
-            {
-                loadWeather(ev);
-                return true;
-            }
-            else if (urlPath.contains("newsCurrent.json"))
-            {
-                loadCurrentNews(ev);
-                return true;
-            }
-            else if (urlPath.contains("news.json"))
-            {
-                loadNews(ev);
-                return true;
-            }
+            loadCalendar(ev);
+            return true;
         }
-        else if (urlPath.startsWith("/Todo/Entries/"))
+        else if (urlPath.startsWith(API + "weather.json"))
+        {
+            loadWeather(ev);
+            return true;
+        }
+        else if (urlPath.startsWith(API + "newsCurrent.json"))
+        {
+            loadCurrentNews(ev);
+            return true;
+        }
+        else if (urlPath.startsWith(API + "news.json"))
+        {
+            loadNews(ev);
+            return true;
+        }
+        else if (urlPath.startsWith(API + "settings"))
+        {
+            postSettings(ev);
+            return true;
+        }
+        else if (urlPath.startsWith(API + "Todo/Entries"))
         {
             postTodo(ev);
             return true;
         }
-        else if (urlPath.startsWith("/Login/addUser"))
+        else if (urlPath.startsWith(LOGIN + "addUser"))
         {
             postAddUser(ev);
         }
@@ -173,7 +188,7 @@ public class MyHttpServer implements HttpHandler
     private boolean doPut(ExchangeValues ev) throws IOException
     {
         String urlPath = getNormalizedPath(ev.exchange);
-        if (urlPath.startsWith("/Todo/Entries/"))
+        if (urlPath.startsWith(API + "Todo/Entries/"))
         {
             putTodo(ev);
             return true;
@@ -184,17 +199,17 @@ public class MyHttpServer implements HttpHandler
     private boolean doDelete(ExchangeValues ev) throws IOException
     {
         String urlPath = getNormalizedPath(ev.exchange);
-        if (urlPath.startsWith("/Todo/Entries/"))
+        if (urlPath.startsWith(API + "Todo/Entries/"))
         {
             deleteTodo(ev);
             return true;
         }
-        else if (urlPath.startsWith("/Todo/EntriesAll"))
+        else if (urlPath.startsWith(API + "Todo/EntriesAll"))
         {
             deleteAllTodo(ev);
             return true;
         }
-        else if (urlPath.startsWith("/Todo/EntriesMultiple/"))
+        else if (urlPath.startsWith(API + "Todo/EntriesMultiple/"))
         {
             deleteMultipleTodos(ev);
             return true;
@@ -205,17 +220,15 @@ public class MyHttpServer implements HttpHandler
     private void loadCalendar(ExchangeValues ev) throws IOException
     {
         GoogleCalendar gc = new GoogleCalendar(ev.getUser().getCalendarId(), ev.getUser().getCalendarKey());
-        Map<String, String> params = parseFormData(ev.exchange);
-        LocalDate from = LocalDate.parse(params.get("from"));
-        LocalDate to = LocalDate.parse(params.get("to"));
+        LocalDate from = LocalDate.parse(ev.params.get("from"));
+        LocalDate to = LocalDate.parse(ev.params.get("to"));
         gc.loadCalendarAPI(from, to);
         sendResponseString(ev.exchange, 200, gc.writeJson());
     }
 
     private void loadWeather(ExchangeValues ev) throws IOException
     {
-        Map<String, String> params = parseFormData(ev.exchange);
-        String city = params.get("city");
+        String city = ev.params.get("city");
         if (city == null)
             city = ev.getUser().getHomeCity();
 
@@ -229,14 +242,13 @@ public class MyHttpServer implements HttpHandler
 
     private void loadNews(ExchangeValues ev) throws IOException
     {
-        Map<String, String> params = parseFormData(ev.exchange);
-        String topic = params.get("topic");
-        Date from = News.parseDate(params.get("from"));
-        Date to = News.parseDate(params.get("to"));
+        String topic = ev.params.get("topic");
+        Date from = News.parseDate(ev.params.get("from"));
+        Date to = News.parseDate(ev.params.get("to"));
         User.Language language = ev.getUser().getLanguage();
         int size = 0;
-        if (params.containsKey("size"))
-            size = Integer.parseInt(params.get("size"));
+        if (ev.params.containsKey("size"))
+            size = Integer.parseInt(ev.params.get("size"));
         sendResponseString(ev.exchange, 200, News.getNews(topic, from, to, language, size));
     }
 
@@ -254,59 +266,59 @@ public class MyHttpServer implements HttpHandler
 
     private void postTodo(ExchangeValues ev) throws IOException
     {
-        Map<String, String> params = parseFormData(ev.exchange);
-        String value = params.get("value");
+        String value = ev.params.get("value");
         System.out.println("value:" + value);
-        boolean done = Boolean.parseBoolean(params.get("done"));
+        boolean done = Boolean.parseBoolean(ev.params.get("done"));
         ev.getUser().getTodoList().addEntry(value, done);
-        sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+        //sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+        sendResponseString(ev.exchange, 200, "Success");
     }
 
     private String getTodoId(ExchangeValues ev) throws IOException
     {
         String path = getNormalizedPath(ev.exchange);
         String[] segments = path.split("/");
-        if (segments.length < 4)
+        if (segments.length < 5)
         {
             sendResponseString(ev.exchange, 400, "Invalid path");
             return null;
         }
-        return segments[3]; // /Todo/Entries/{id}
+        return segments[4]; //API/Todo/Entries/{id}
     }
 
     private void putTodo(ExchangeValues ev) throws IOException
     {
-        Map<String, String> params = parseFormData(ev.exchange);
         String id = getTodoId(ev);
         if (id == null)
             return;
-        String value = params.get("value");
-        boolean done = Boolean.parseBoolean(params.get("done"));
+        String value = ev.params.get("value");
+        boolean done = Boolean.parseBoolean(ev.params.get("done"));
         ev.getUser().getTodoList().changeValue(id, value);
         ev.getUser().getTodoList().changeDone(id, done);
-        sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+        //sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+        sendResponseString(ev.exchange, 200, "Success");
     }
 
     private void deleteTodo(ExchangeValues ev) throws IOException
     {
-        Map<String, String> params = parseFormData(ev.exchange);
         String id = getTodoId(ev);
         if (id == null)
             return;
         ev.getUser().getTodoList().deleteEntry(id);
-        sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+        //sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+        sendResponseString(ev.exchange, 200, "Success");
     }
 
     private void deleteAllTodo(ExchangeValues ev) throws IOException
     {
         ev.getUser().getTodoList().deleteAll();
-        sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+        //sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+        sendResponseString(ev.exchange, 200, "Success");
     }
 
     private void deleteMultipleTodos(ExchangeValues ev) throws IOException
     {
-        Map<String, String> params = parseFormData(ev.exchange);
-        String idsStr = params.get("ids"); // Erwartet: "id1,id2,id3"
+        String idsStr = ev.params.get("ids"); // Erwartet: "id1,id2,id3"
         if (idsStr == null || idsStr.isEmpty())
         {
             sendResponseString(ev.exchange, 400, "Keine IDs angegeben");
@@ -318,14 +330,14 @@ public class MyHttpServer implements HttpHandler
         {
             ev.getUser().getTodoList().deleteEntry(id.trim());
         }
-        sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+        //sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
+        sendResponseString(ev.exchange, 200, "Success");
     }
 
     private void postAddUser(ExchangeValues ev) throws IOException
     {
-        Map<String, String> params = parseFormData(ev.exchange);
-        String username = params.get("userName");
-        String passwd = params.get("passwd");
+        String username = ev.params.get("userName");
+        String passwd = ev.params.get("passwd");
         System.out.println("username:" + username + " passwd" + passwd);
         if (User.hasUser(username))
         {
@@ -338,6 +350,30 @@ public class MyHttpServer implements HttpHandler
         sendResponseString(ev.exchange, 200, "Erfolg");
     }
 
+    private void getSettings(ExchangeValues ev) throws IOException
+    {
+        Gson gson = new Gson();
+        sendResponseString(ev.exchange, 200, gson.toJson(ev.getUser()));
+    }
+
+    private void postSettings(ExchangeValues ev) throws IOException
+    {
+        String passwd = ev.params.get("newPassword");
+        ev.getUser().setPasswd(ev.params.get("passwd"));
+        if (!passwd.isEmpty())
+            ev.getUser().setPasswd(passwd);
+        ev.getUser().setNameGiven(ev.params.get("nameGiven"));
+        ev.getUser().setNameFamily(ev.params.get("nameFamily"));
+        ev.getUser().setCalendarId(ev.params.get("calendarId"));
+        ev.getUser().setCalendarKey(ev.params.get("calendarKey"));
+        ev.getUser().setHomeCity(ev.params.get("homeCity"));
+        ev.getUser().setMainNews(ev.params.get("mainNews"));
+        ev.getUser().setNewsTopicString(ev.params.get("newsTopics"));
+        ev.getUser().setLanguage(User.Language.valueOf(ev.params.get("language")));
+        System.out.println("8" + ev.params.get("language"));
+
+        sendResponseString(ev.exchange, 200, "Erfolg");
+    }
 
     private boolean findSessionId(HttpExchange exchange)
     {
@@ -367,27 +403,27 @@ public class MyHttpServer implements HttpHandler
         return null;
     }
 
-    private boolean checkLogin(HttpExchange exchange) throws IOException
+    private boolean checkLogin(ExchangeValues ev) throws IOException
     {
-        String urlPath = getNormalizedPath(exchange);
-        if ( !urlPath.startsWith(LOGIN) && (urlPath.startsWith(JSON) || urlPath.endsWith("html")) /*|| urlPath.endsWith("js")*/)
+        String urlPath = getNormalizedPath(ev.exchange);
+        if (!urlPath.startsWith(LOGIN) && (urlPath.startsWith(API) || urlPath.endsWith("html")) /*|| urlPath.endsWith("js")*/)
         {
-            if (exchange.getRequestMethod().equals("POST"))
+            if (ev.exchange.getRequestMethod().equals("POST"))
             {
-                Map<String, String> params = parseFormData(exchange);
-                if (params.containsKey(USERNAME_ID) && params.containsKey(PASSWORD_ID))
+                //Map<String, String> params = parseFormData(exchange);
+                if (ev.params.containsKey(USERNAME_ID) && ev.params.containsKey(PASSWORD_ID))
                 {
 
-                    String username = params.get(USERNAME_ID);
-                    String passwd = params.get(PASSWORD_ID);
+                    String username = ev.params.get(USERNAME_ID);
+                    String passwd = ev.params.get(PASSWORD_ID);
                     if (User.hasUser(username) && User.getUser(username).getPasswd().checkPassword(passwd))
                     {
-                        Session.createSessionId(exchange, username);
+                        Session.createSessionId(ev.exchange, username);
                         return true;
                     }
                 }
             }
-            return findSessionId(exchange);
+            return findSessionId(ev.exchange);
         }
         return true; //No Login Needed!
     }
@@ -430,19 +466,12 @@ public class MyHttpServer implements HttpHandler
         String method = exchange.getRequestMethod().toUpperCase();
         if (method.equals("POST") || method.equals("PUT") || method.equals("DELETE"))
         {
-            InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(isr);
-            StringBuilder body = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null)
-            {
-                body.append(line);
-            }
-            System.out.println("body: '" + body.toString() + "'");
+            String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+            System.out.println("body: '" + body + "'");
+            parseQuery(body, params);
 
-            String bodyQuery = body.toString(); // z. B. "value=Test&done=true"
-            parseQuery(bodyQuery, params);
         }
+
 
         System.out.println("Form data:");
         for (Map.Entry<String, String> entry : params.entrySet())

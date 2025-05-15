@@ -1,3 +1,4 @@
+import * as Helper from "../../js/helper.js";
 export class  LoginController {
 	constructor() {
 	}
@@ -16,7 +17,7 @@ export class  LoginController {
 		}
 
 		try {
-			const response = await fetch(`/Login/addUser`,{
+			const response = await fetch(Helper.getLoginPath(`addUser`),{
 				method: 'POST',
 				headers: { "Content-Type": "application/x-www-form-urlencoded" },
 				body: new URLSearchParams({

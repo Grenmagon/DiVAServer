@@ -1,3 +1,4 @@
+import * as Helper from "../../js/helper.js";
 
 export class CalendarController {
 	constructor() {
@@ -36,7 +37,7 @@ export class CalendarController {
 	}
 
 	async loadAppointments(from, to) {
-		const response = await fetch(`/JSON/calendar.json?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`, {
+		const response = await fetch(Helper.getApiPath(`/calendar.json?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`), {
 			method: 'POST'
 		});
 		const data = await response.json();
@@ -44,11 +45,6 @@ export class CalendarController {
 
 
 		let output = "";
-		/*
-		data.appointments.forEach(event => {
-			output += `<div><strong>${event.name}</strong><br>${event.from}</div>`;
-		});
-		*/
 		output = this.renderAppointments(data.appointments);
 		return output;
 	}

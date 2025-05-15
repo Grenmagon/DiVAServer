@@ -1,3 +1,21 @@
+const API = "API";
+const LOGIN = "Login";
+
+export function getApiPath(path)
+{
+	if (!path.startsWith("/"))
+		path = "/" + path
+
+	return "/" + API + path;
+}
+
+export function getLoginPath(path)
+{
+	if (!path.startsWith("/"))
+		path = "/" + path
+	return "/" + LOGIN + path;
+}
+
 export function getCurrentDate() {
 	const today = new Date();
 	const year = today.getFullYear();

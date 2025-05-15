@@ -1,12 +1,10 @@
 package org.example.User;
 
+import com.google.gson.Gson;
 import org.example.Main;
 import org.example.Tools.TodoList;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class User
 {
@@ -163,7 +161,13 @@ public class User
 
     public void setNewsTopicString(String newsTopicString)
     {
-        setNewsTopics(List.of(newsTopicString));
+        System.out.println("setNewsTopicString1 " + newsTopicString);
+        String[] arr = newsTopicString.split(LIST_DIVIDER);
+        System.out.println("setNewsTopicString2");
+        List<String> list = Arrays.asList(arr);
+        System.out.println("setNewsTopicString3");
+        setNewsTopics(list);
+        System.out.println("setNewsTopicString4");
     }
 
     public Language getLanguage()
@@ -198,5 +202,29 @@ public class User
     public static User getUser(String username)
     {
         return users.get(username);
+    }
+
+    public String writeJson()
+    {
+        Gson g = new Gson();
+        return g.toJson(this);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "User{" +
+                "nameFamily='" + nameFamily + '\'' +
+                ", nameGiven='" + nameGiven + '\'' +
+                ", login='" + login + '\'' +
+                ", passwd=" + passwd +
+                ", CalendarKey='" + CalendarKey + '\'' +
+                ", CalendarId='" + CalendarId + '\'' +
+                ", homeCity='" + homeCity + '\'' +
+                ", mainNews='" + mainNews + '\'' +
+                ", newsTopics=" + getNewsTopicsString()+
+                ", language=" + language +
+                ", todoList=" + todoList +
+                '}';
     }
 }

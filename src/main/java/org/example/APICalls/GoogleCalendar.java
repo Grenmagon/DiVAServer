@@ -61,7 +61,8 @@ public class GoogleCalendar
 
     public void loadCalendarAPI(LocalDate from, LocalDate to)
     {
-
+        if (api_key.isEmpty() || calendar_Id.isEmpty())
+            return;
         String calendarJSon = RESTCall.getContent(getUrlAPI(from, to));
         System.out.println("Appointments load:");
         System.out.println(calendarJSon);

@@ -8,10 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadWidgets() {
-    loadCalendar();
     loadWeather();
+    loadTODO(); 
+    loadCalendar();
     loadNews();
-    loadTODO(); // optional, wenn Sie TODOs benötigen
 }
 
 function loadWidgetsStyle() {
