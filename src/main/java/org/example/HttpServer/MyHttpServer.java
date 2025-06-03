@@ -445,6 +445,14 @@ public class MyHttpServer implements HttpHandler
         String contentType = guessContentType(normalizedPath); // statt exchange.getRequestURI().getPath()
 
         exchange.getResponseHeaders().set("Content-Type", contentType);
+
+        /*Für Swagger*/
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:8010");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Credentials", "true");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+
+
         exchange.sendResponseHeaders(statusCode, response.length);
         OutputStream os = exchange.getResponseBody();
         os.write(response);
