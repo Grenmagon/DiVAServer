@@ -1,6 +1,7 @@
 package org.example.User;
 
 import com.google.gson.Gson;
+import org.example.Database.TodoRepository;
 import org.example.Database.UserRepository;
 import org.example.Main;
 import org.example.Tools.TodoList;
@@ -33,7 +34,7 @@ public class User
     private List<String> newsTopics = new ArrayList<>();
     private Language language = null;
 
-    private TodoList todoList = new TodoList();
+    //private TodoList todoList = new TodoList();
 
     public User(String login, String password, String salt)
     {
@@ -41,7 +42,7 @@ public class User
         passwd = new Passwd(password, salt);
     }
 
-    public User( String login, String password)
+    public User(String login, String password)
     {
         //setNameFamily(nameFamily);
         //setNameGiven(nameGiven);
@@ -51,13 +52,13 @@ public class User
         //Default Werte
         setLanguage(Language.en);
         setMainNews("Wichtig");
-        setNewsTopics(List.of("Politik","Technik", "Finanzen"));
+        setNewsTopics(List.of("Politik", "Technik", "Finanzen"));
         setHomeCity("Wien");
     }
 
     public User(String nameFamily, String nameGiven, String login, String passwd, String calendarKey, String calendarId, String homeCity, String mainNews, List<String> newsTopics, Language language)
     {
-        this(login,passwd);
+        this(login, passwd);
 
         setNameFamily(nameFamily);
         setNameGiven(nameGiven);
@@ -188,16 +189,19 @@ public class User
         this.language = language;
     }
 
-    public TodoList getTodoList()
+    public TodoList getTodoList() throws SQLException
     {
-        return todoList;
+        //return todoList;
+        //return TodoRepository.getInstance().findAllUserTodos(this);
+        return new TodoList(this);
     }
 
-    public void setTodoList(TodoList todoList)
-    {
-        this.todoList = todoList;
-    }
-
+    /*
+        public void setTodoList(TodoList todoList)
+        {
+            this.todoList = todoList;
+        }
+    */
     public static boolean addUser(User user)
     {
         //users.put(user.getLogin(), user);
@@ -219,6 +223,7 @@ public class User
         //return users.containsKey(username);
         return null != getUser(username);
     }
+
     public static User getUser(String username) throws SQLException
     {
         //return users.get(username);
@@ -234,7 +239,7 @@ public class User
     @Override
     public String toString()
     {
-        return "User{" +
+        String ret = "User{" +
                 "nameFamily='" + nameFamily + '\'' +
                 ", nameGiven='" + nameGiven + '\'' +
                 ", login='" + login + '\'' +
@@ -243,9 +248,17 @@ public class User
                 ", CalendarId='" + CalendarId + '\'' +
                 ", homeCity='" + homeCity + '\'' +
                 ", mainNews='" + mainNews + '\'' +
-                ", newsTopics=" + getNewsTopicsString()+
-                ", language=" + language +
-                ", todoList=" + todoList +
-                '}';
+                ", newsTopics=" + getNewsTopicsString() +
+                ", language=" + language;
+        try
+        {
+            ret += ", todoList=" + /*todoList*/ getTodoList();
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        ret += '}';
+        return ret;
     }
 }

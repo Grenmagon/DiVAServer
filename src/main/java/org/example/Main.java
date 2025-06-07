@@ -11,6 +11,7 @@ import com.sun.net.httpserver.HttpServer;
 import org.example.APICalls.GoogleCalendar;
 import org.example.APICalls.News;
 import org.example.APICalls.Weather;
+import org.example.Database.DatabaseConsole;
 import org.example.HttpServer.MyHttpServer;
 import org.example.User.User;
 
@@ -33,12 +34,23 @@ public class Main
         server.setExecutor(null); // Standard-Executor verwenden
         server.start();
 
+
+        // Registriere Shutdown-Hook
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Shutdown-Hook wird ausgeführt...");
+            DatabaseConsole.stopConsole();  // <- Konsole sauber schließen
+            //server.stop();                  // <- Server stoppen, falls nötig
+        }));
+
         System.out.println("Server gestartet auf http://localhost:" + port);
 
+        DatabaseConsole.startConsole(); //wenn Application gestartet wird- Datenbankverbindung
         testUsers();
 
         //testStuff();
     }
+
+
 
     private static void testStuff() throws SQLException
     {

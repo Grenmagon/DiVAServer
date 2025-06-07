@@ -14,7 +14,7 @@ public class TodoEntity
     //private long id;
     @DatabaseField
     private long userId;
-    @DatabaseField
+    @DatabaseField(id = true)
     String id;//todoId;
     @DatabaseField
     String value;
@@ -40,6 +40,16 @@ public class TodoEntity
     public void setId(String id)
     {
         this.id = id;
+    }
+
+    public long getUserId()
+    {
+        return userId;
+    }
+
+    public void setUserId(long userId)
+    {
+        this.userId = userId;
     }
 
     public static TodoList.Entry toTodoEntry(TodoEntity entity)

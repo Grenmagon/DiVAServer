@@ -127,7 +127,7 @@ public class MyHttpServer implements HttpHandler
         }
     }
 
-    private boolean doGet(ExchangeValues ev) throws IOException
+    private boolean doGet(ExchangeValues ev) throws IOException, SQLException
     {
         String urlPath = getNormalizedPath(ev.exchange);
 
@@ -202,7 +202,7 @@ public class MyHttpServer implements HttpHandler
     }
 
 
-    private boolean doPut(ExchangeValues ev) throws IOException
+    private boolean doPut(ExchangeValues ev) throws IOException, SQLException
     {
         String urlPath = getNormalizedPath(ev.exchange);
         if (urlPath.startsWith(API + "Todo/Entries/"))
@@ -213,7 +213,7 @@ public class MyHttpServer implements HttpHandler
         return false;
     }
 
-    private boolean doDelete(ExchangeValues ev) throws IOException
+    private boolean doDelete(ExchangeValues ev) throws IOException, SQLException
     {
         String urlPath = getNormalizedPath(ev.exchange);
         if (urlPath.startsWith(API + "Todo/Entries/"))
@@ -276,12 +276,12 @@ public class MyHttpServer implements HttpHandler
         sendResponseString(ev.exchange, 200, gson.toJson(topics));
     }
 
-    private void getTodo(ExchangeValues ev) throws IOException
+    private void getTodo(ExchangeValues ev) throws IOException, SQLException
     {
         sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
     }
 
-    private void postTodo(ExchangeValues ev) throws IOException
+    private void postTodo(ExchangeValues ev) throws IOException, SQLException
     {
         String value = ev.params.get("value");
         //System.out.println("value:" + value);
@@ -303,7 +303,7 @@ public class MyHttpServer implements HttpHandler
         return segments[4]; //API/Todo/Entries/{id}
     }
 
-    private void putTodo(ExchangeValues ev) throws IOException
+    private void putTodo(ExchangeValues ev) throws IOException, SQLException
     {
         String id = getTodoId(ev);
         if (id == null)
@@ -316,7 +316,7 @@ public class MyHttpServer implements HttpHandler
         sendResponseString(ev.exchange, 200, "Success");
     }
 
-    private void deleteTodo(ExchangeValues ev) throws IOException
+    private void deleteTodo(ExchangeValues ev) throws IOException, SQLException
     {
         String id = getTodoId(ev);
         if (id == null)
@@ -326,14 +326,14 @@ public class MyHttpServer implements HttpHandler
         sendResponseString(ev.exchange, 200, "Success");
     }
 
-    private void deleteAllTodo(ExchangeValues ev) throws IOException
+    private void deleteAllTodo(ExchangeValues ev) throws IOException, SQLException
     {
         ev.getUser().getTodoList().deleteAll();
         //sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
         sendResponseString(ev.exchange, 200, "Success");
     }
 
-    private void deleteMultipleTodos(ExchangeValues ev) throws IOException
+    private void deleteMultipleTodos(ExchangeValues ev) throws IOException, SQLException
     {
         String idsStr = ev.params.get("ids"); // Erwartet: "id1,id2,id3"
         if (idsStr == null || idsStr.isEmpty())
