@@ -1,15 +1,17 @@
 package org.example.User;
 
 import com.google.gson.Gson;
+import org.example.Database.UserRepository;
 import org.example.Main;
 import org.example.Tools.TodoList;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class User
 {
-    private static String LIST_DIVIDER = ";";
-    private static Map<String, User> users = new HashMap<>(); // Login-User
+    public static String LIST_DIVIDER = ";";
+    //private static Map<String, User> users = new HashMap<>(); // Login-User
 
     public enum Language
     {
@@ -32,6 +34,12 @@ public class User
     private Language language = null;
 
     private TodoList todoList = new TodoList();
+
+    public User(String login, String password, String salt)
+    {
+        setLogin(login);
+        passwd = new Passwd(password, salt);
+    }
 
     public User( String login, String password)
     {
@@ -190,18 +198,31 @@ public class User
         this.todoList = todoList;
     }
 
-    public static void addUser(User user)
+    public static boolean addUser(User user)
     {
-        users.put(user.getLogin(), user);
+        //users.put(user.getLogin(), user);
+        try
+        {
+            UserRepository.getInstance().addToDb(user);
+            return true;
+        }
+        catch (SQLException e)
+        {
+            //throw new RuntimeException(e);
+            System.out.println(e);
+            return false;
+        }
     }
 
-    public static boolean hasUser(String username)
+    public static boolean hasUser(String username) throws SQLException
     {
-        return users.containsKey(username);
+        //return users.containsKey(username);
+        return null != getUser(username);
     }
-    public static User getUser(String username)
+    public static User getUser(String username) throws SQLException
     {
-        return users.get(username);
+        //return users.get(username);
+        return UserRepository.getInstance().loadUser(username);
     }
 
     public String writeJson()

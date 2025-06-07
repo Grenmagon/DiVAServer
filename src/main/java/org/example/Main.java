@@ -3,6 +3,7 @@ package org.example;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Main
 
     public static GoogleCalendar gc;
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException, SQLException
     {
         int port = 8080; // Portnummer
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
@@ -39,7 +40,7 @@ public class Main
         //testStuff();
     }
 
-    private static void testStuff()
+    private static void testStuff() throws SQLException
     {
         System.out.println("CalendarTest");
         gc = new GoogleCalendar(WOLFI_CALENDAR_ID, WOLFI_API_Key);
@@ -61,13 +62,15 @@ public class Main
     }
 
 
-    public static void testUsers()
+    public static void testUsers() throws SQLException
     {
-
+        System.out.println("TestUsers");
+        System.out.println("neuer user");
         User w = new User("Prossinagg", "Wolfgang", "wp", "123", WOLFI_API_Key, WOLFI_CALENDAR_ID, "Vienna", "Warhammer", List.of("tech", "finance", "politics", "sport", "warhammer", "MTG", "Marvel"), User.Language.en);
-
+        System.out.println("user hinzufügen");
         User.addUser(w);
 
+        System.out.println("LoginChecks");
         if (User.getUser("wp").getPasswd().checkPassword("123"))
             System.out.println("LOGIN OK");
         else

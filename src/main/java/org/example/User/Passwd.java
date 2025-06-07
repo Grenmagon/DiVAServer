@@ -31,6 +31,16 @@ public class Passwd
         this.salt = salt;
     }
 
+    public String getPasswd()
+    {
+        return passwd;
+    }
+
+    public String getSalt()
+    {
+        return salt;
+    }
+
     public void setPassword(String passwd)
     {
         salt = generateSalt();

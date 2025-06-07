@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class TodoList
 {
-    private class Entry
+    public static class Entry
     {
         String id;
         String value;
@@ -20,6 +20,36 @@ public class TodoList
             this.value = value;
             this.done = done;
         }
+
+        public String getId()
+        {
+            return id;
+        }
+
+        public void setId(String id)
+        {
+            this.id = id;
+        }
+
+        public String getValue()
+        {
+            return value;
+        }
+
+        public void setValue(String value)
+        {
+            this.value = value;
+        }
+
+        public boolean isDone()
+        {
+            return done;
+        }
+
+        public void setDone(boolean done)
+        {
+            this.done = done;
+        }
     }
 
     private final List<Entry> entries = new ArrayList<>();
@@ -27,7 +57,7 @@ public class TodoList
     public String addEntry(String value, boolean done)
     {
         UUID uuid = UUID.randomUUID();
-        entries.add(new Entry(uuid.toString(),value, done));
+        entries.add(new Entry(uuid.toString(), value, done));
         return uuid.toString();
     }
 

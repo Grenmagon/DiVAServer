@@ -5,6 +5,7 @@ import org.example.Main;
 import org.example.User.User;
 
 import java.net.InetSocketAddress;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -33,7 +34,7 @@ public class Session
         return sessions.get(sessionId);
     }
 
-    public static void createSessionId(HttpExchange exchange, String login)
+    public static void createSessionId(HttpExchange exchange, String login) throws SQLException
     {
         String sessionId = UUID.randomUUID().toString();
         sessions.put(sessionId, new Session(exchange.getRemoteAddress(),sessionId, User.getUser(login)));

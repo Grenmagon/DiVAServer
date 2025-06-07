@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -61,37 +62,53 @@ public class MyHttpServer implements HttpHandler
 
         ExchangeValues ev = new ExchangeValues(exchange);
 
-        if (!checkLogin(ev))
+        try
         {
-            sendLoginPage(ev.exchange);
-            return;
+            if (!checkLogin(ev))
+            {
+                sendLoginPage(ev.exchange);
+                return;
+            }
+        }
+        catch (SQLException e)
+        {
+            //TODO send error!!!
+            throw new RuntimeException(e);
         }
         ev.setSession();
-        System.out.println("UrlPath:" + urlPath);
+        //System.out.println("UrlPath:" + urlPath);
 
         String method = exchange.getRequestMethod();
-        System.out.println("Method: " + exchange.getRequestMethod());
+        //System.out.println("Method: " + exchange.getRequestMethod());
 
-        //Auf Http-Request-Typ reagieren
-        if (method.equals("GET"))
+        try
         {
-            if (doGet(ev))
-                return;
+            //Auf Http-Request-Typ reagieren
+            if (method.equals("GET"))
+            {
+                if (doGet(ev))
+                    return;
+            }
+            else if (method.equals("POST"))
+            {
+                if (doPost(ev))
+                    return;
+            }
+            else if (method.equals("PUT"))
+            {
+                if (doPut(ev))
+                    return;
+            }
+            else if (method.equals("DELETE"))
+            {
+                if (doDelete(ev))
+                    return;
+            }
         }
-        else if (method.equals("POST"))
+        catch (SQLException e)
         {
-            if (doPost(ev))
-                return;
-        }
-        else if (method.equals("PUT"))
-        {
-            if (doPut(ev))
-                return;
-        }
-        else if (method.equals("DELETE"))
-        {
-            if (doDelete(ev))
-                return;
+            //TODO send error!!!
+            throw new RuntimeException(e);
         }
 
         System.out.println("open files");
@@ -134,12 +151,12 @@ public class MyHttpServer implements HttpHandler
         return false;
     }
 
-    private boolean doPost(ExchangeValues ev) throws IOException
+    private boolean doPost(ExchangeValues ev) throws IOException, SQLException
     {
-        System.out.println("DOPOST!!!");
+        //System.out.println("DOPOST!!!");
         String urlPath = getNormalizedPath(ev.exchange);
 
-        System.out.println(API);
+        //.out.println(API);
         if (urlPath.startsWith(API + "calendar.json"))
         {
             loadCalendar(ev);
@@ -267,7 +284,7 @@ public class MyHttpServer implements HttpHandler
     private void postTodo(ExchangeValues ev) throws IOException
     {
         String value = ev.params.get("value");
-        System.out.println("value:" + value);
+        //System.out.println("value:" + value);
         boolean done = Boolean.parseBoolean(ev.params.get("done"));
         ev.getUser().getTodoList().addEntry(value, done);
         //sendResponseString(ev.exchange, 200, ev.getUser().getTodoList().toJSON());
@@ -334,11 +351,11 @@ public class MyHttpServer implements HttpHandler
         sendResponseString(ev.exchange, 200, "Success");
     }
 
-    private void postAddUser(ExchangeValues ev) throws IOException
+    private void postAddUser(ExchangeValues ev) throws IOException, SQLException
     {
         String username = ev.params.get("userName");
         String passwd = ev.params.get("passwd");
-        System.out.println("username:" + username + " passwd" + passwd);
+        //System.out.println("username:" + username + " passwd" + passwd);
         if (User.hasUser(username))
         {
             sendResponseString(ev.exchange, 409, "User ist schon vorhanden!");
@@ -370,7 +387,7 @@ public class MyHttpServer implements HttpHandler
         ev.getUser().setMainNews(ev.params.get("mainNews"));
         ev.getUser().setNewsTopicString(ev.params.get("newsTopics"));
         ev.getUser().setLanguage(User.Language.valueOf(ev.params.get("language")));
-        System.out.println("8" + ev.params.get("language"));
+        //System.out.println("8" + ev.params.get("language"));
 
         sendResponseString(ev.exchange, 200, "Erfolg");
     }
@@ -403,7 +420,7 @@ public class MyHttpServer implements HttpHandler
         return null;
     }
 
-    private boolean checkLogin(ExchangeValues ev) throws IOException
+    private boolean checkLogin(ExchangeValues ev) throws IOException, SQLException
     {
         String urlPath = getNormalizedPath(ev.exchange);
         if (!urlPath.startsWith(LOGIN) && (urlPath.startsWith(API) || urlPath.endsWith("html")) /*|| urlPath.endsWith("js")*/)
@@ -475,17 +492,19 @@ public class MyHttpServer implements HttpHandler
         if (method.equals("POST") || method.equals("PUT") || method.equals("DELETE"))
         {
             String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
-            System.out.println("body: '" + body + "'");
+            //System.out.println("body: '" + body + "'");
             parseQuery(body, params);
 
         }
 
-
-        System.out.println("Form data:");
+        /*
+        //System.out.println("Form data:");
         for (Map.Entry<String, String> entry : params.entrySet())
         {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
+        */
+
 
         return params;
     }
